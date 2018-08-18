@@ -36,7 +36,5 @@ Style/Documentation:
 # SupportedStyles: single_quotes, double_quotes
 Style/StringLiterals:
   Exclude:
-    - 'lib/ffi/openmpt.rb'
-    - 'lib/ffi/openmpt/version.rb'
     - 'test/ffi/openmpt_test.rb'
     - 'test/test_helper.rb'
