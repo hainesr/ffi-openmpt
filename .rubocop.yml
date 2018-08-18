@@ -8,3 +8,8 @@ Gemspec/RequiredRubyVersion:
 # Force ruby19 style hash keys, but be consistent within a hash.
 Style/HashSyntax:
   EnforcedStyle: ruby19_no_mixed_keys
+
+# Allow compact child definitions in the tests for brevity.
+Style/ClassAndModuleChildren:
+  Exclude:
+    - 'test/**/*'
