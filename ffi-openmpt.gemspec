@@ -4,7 +4,7 @@
 #
 # Licensed under the BSD License. See LICENCE for details.
 
-lib = File.expand_path("../lib", __FILE__)
+lib = File.expand_path("lib", __dir__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require "ffi/openmpt/version"
 
