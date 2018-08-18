@@ -7,7 +7,7 @@
 require 'coveralls'
 Coveralls.wear!
 
-$LOAD_PATH.unshift File.expand_path("../lib", __dir__)
-require "ffi/openmpt"
+$LOAD_PATH.unshift File.expand_path('../lib', __dir__)
+require 'ffi/openmpt'
 
-require "minitest/autorun"
+require 'minitest/autorun'

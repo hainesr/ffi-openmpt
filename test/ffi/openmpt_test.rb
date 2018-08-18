@@ -4,7 +4,7 @@
 #
 # Licensed under the BSD License. See LICENCE for details.
 
-require "test_helper"
+require 'test_helper'
 
 class FFI::OpenMPTTest < Minitest::Test
   def test_that_it_has_a_version_number
