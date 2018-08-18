@@ -44,20 +44,6 @@ Style/ExpandPathArguments:
     - 'ffi-openmpt.gemspec'
     - 'test/test_helper.rb'
 
-# Offense count: 7
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: when_needed, always, never
-Style/FrozenStringLiteralComment:
-  Exclude:
-    - 'Gemfile'
-    - 'Rakefile'
-    - 'bin/console'
-    - 'lib/ffi/openmpt.rb'
-    - 'lib/ffi/openmpt/version.rb'
-    - 'test/ffi/openmpt_test.rb'
-    - 'test/test_helper.rb'
-
 # Offense count: 1
 # Cop supports --auto-correct.
 # Configuration parameters: UseHashRocketsWithSymbolValues, PreferHashRocketsForNonAlnumEndingSymbols.
