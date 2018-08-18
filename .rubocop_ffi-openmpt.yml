@@ -44,12 +44,6 @@ Style/Documentation:
 Style/HashSyntax:
   EnforcedStyle: hash_rockets
 
-# Offense count: 1
-# Cop supports --auto-correct.
-Style/MutableConstant:
-  Exclude:
-    - 'lib/ffi/openmpt/version.rb'
-
 # Offense count: 28
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, ConsistentQuotesInMultiline.
