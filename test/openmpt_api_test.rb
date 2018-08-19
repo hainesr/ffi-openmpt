@@ -23,4 +23,9 @@ class FFI::OpenMPT::APITest < Minitest::Test
     refute_nil version
     assert_kind_of Integer, version
   end
+
+  def test_logging_funcs
+    assert_nil openmpt_log_func_default('hello', nil)
+    assert_nil openmpt_log_func_silent('hello', nil)
+  end
 end
