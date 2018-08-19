@@ -69,6 +69,24 @@ class FFI::OpenMPT::APITest < Minitest::Test
     end
   end
 
+  def test_module_read_stereo
+    left = ::FFI::MemoryPointer.new(:short, 480)
+    right = ::FFI::MemoryPointer.new(:short, 480)
+    module_test(MOD_LAST_SUN) do |mod|
+      count = openmpt_module_read_stereo(mod, 48_000, 480, left, right)
+      assert_equal 480, count
+    end
+  end
+
+  def test_module_read_float_stereo
+    left = ::FFI::MemoryPointer.new(:float, 480)
+    right = ::FFI::MemoryPointer.new(:float, 480)
+    module_test(MOD_LAST_SUN) do |mod|
+      count = openmpt_module_read_float_stereo(mod, 48_000, 480, left, right)
+      assert_equal 480, count
+    end
+  end
+
   private
 
   def load_mod_data(file)

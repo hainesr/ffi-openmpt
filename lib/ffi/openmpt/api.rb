@@ -46,6 +46,12 @@ module FFI
                       :pointer
       attach_function :openmpt_module_destroy, [:pointer], :void
       attach_function :openmpt_module_get_duration_seconds, [:pointer], :double
+      attach_function :openmpt_module_read_stereo,
+                      [:pointer, :int, :int, :pointer, :pointer],
+                      :int
+      attach_function :openmpt_module_read_float_stereo,
+                      [:pointer, :int, :int, :pointer, :pointer],
+                      :int
     end
   end
 end
