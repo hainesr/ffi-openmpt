@@ -45,6 +45,7 @@ module FFI
                       ],
                       :pointer
       attach_function :openmpt_module_destroy, [:pointer], :void
+      attach_function :openmpt_module_get_duration_seconds, [:pointer], :double
     end
   end
 end

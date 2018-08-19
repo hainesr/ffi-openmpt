@@ -61,6 +61,14 @@ class FFI::OpenMPT::APITest < Minitest::Test
     assert_equal mod.address, 0
   end
 
+  def test_module_get_duration
+    module_test(MOD_LAST_SUN) do |mod|
+      dur = openmpt_module_get_duration_seconds(mod)
+      assert_kind_of ::Float, dur
+      refute_equal dur, 0
+    end
+  end
+
   private
 
   def load_mod_data(file)
