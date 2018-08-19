@@ -9,6 +9,10 @@ Gemspec/RequiredRubyVersion:
 Style/HashSyntax:
   EnforcedStyle: ruby19_no_mixed_keys
 
+# Use brackets style for symbol arrays.
+Style/SymbolArray:
+  EnforcedStyle: brackets
+
 # Enforce empty lines at the beginning of classes.
 Layout/EmptyLinesAroundClassBody:
   EnforcedStyle: beginning_only
