@@ -36,6 +36,15 @@ module FFI
         attach_function :openmpt_error_func_store, [:int, :pointer], :int
       ErrorIgnore =
         attach_function :openmpt_error_func_ignore, [:int, :pointer], :int
+
+      # Module API calls
+      attach_function :openmpt_module_create_from_memory2,
+                      [
+                        :pointer, :int, :pointer, :pointer, :pointer,
+                        :pointer, :pointer, :pointer, :pointer
+                      ],
+                      :pointer
+      attach_function :openmpt_module_destroy, [:pointer], :void
     end
   end
 end

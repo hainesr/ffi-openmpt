@@ -39,4 +39,34 @@ class FFI::OpenMPT::APITest < Minitest::Test
     assert_equal openmpt_error_func_ignore(1, nil),
                  OPENMPT_ERROR_FUNC_RESULT_NONE
   end
+
+  def test_create_module
+    data = load_mod_data(MOD_LAST_SUN)
+
+    begin
+      mod = openmpt_module_create_from_memory2(data, data.size, LogSilent, nil,
+                                               ErrorIgnore, nil, nil, nil, nil)
+      refute_nil mod
+      refute_equal mod.address, 0
+    ensure
+      assert_nil openmpt_module_destroy(mod)
+    end
+  end
+
+  def test_create_module_bad_data
+    data = ::FFI::MemoryPointer.new(:char, 0)
+
+    mod = openmpt_module_create_from_memory2(data, data.size, LogSilent, nil,
+                                             ErrorIgnore, nil, nil, nil, nil)
+    assert_equal mod.address, 0
+  end
+
+  private
+
+  def load_mod_data(file)
+    data = ::File.read(file)
+    buffer = ::FFI::MemoryPointer.new(:char, data.bytesize)
+    buffer.put_bytes(0, data)
+    buffer
+  end
 end
