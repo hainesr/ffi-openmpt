@@ -14,6 +14,12 @@ module FFI
       # Version API calls
       attach_function :openmpt_get_library_version, [], :uint
       attach_function :openmpt_get_core_version, [], :uint
+
+      # Logging API calls
+      LogDefault =
+        attach_function :openmpt_log_func_default, [:string, :pointer], :void
+      LogSilent =
+        attach_function :openmpt_log_func_silent, [:string, :pointer], :void
     end
   end
 end
