@@ -69,4 +69,13 @@ class FFI::OpenMPT::APITest < Minitest::Test
     buffer.put_bytes(0, data)
     buffer
   end
+
+  def module_test(file)
+    data = load_mod_data(file)
+    mod = openmpt_module_create_from_memory2(data, data.size, LogSilent, nil,
+                                             ErrorIgnore, nil, nil, nil, nil)
+    yield mod if block_given?
+  ensure
+    openmpt_module_destroy(mod)
+  end
 end
