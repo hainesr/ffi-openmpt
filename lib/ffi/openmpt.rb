@@ -4,9 +4,13 @@
 #
 # Licensed under the BSD License. See LICENCE for details.
 
-require 'ffi/openmpt/version'
+require 'ffi'
 
 module FFI
   module OpenMPT
   end
 end
+
+require 'ffi/openmpt/version'
+require 'ffi/openmpt/api'
+require 'ffi/openmpt/openmpt'
