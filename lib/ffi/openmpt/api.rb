@@ -20,6 +20,22 @@ module FFI
         attach_function :openmpt_log_func_default, [:string, :pointer], :void
       LogSilent =
         attach_function :openmpt_log_func_silent, [:string, :pointer], :void
+
+      # Error handling API calls
+      OPENMPT_ERROR_FUNC_RESULT_NONE    = 0
+      OPENMPT_ERROR_FUNC_RESULT_LOG     = (1 << 0)
+      OPENMPT_ERROR_FUNC_RESULT_STORE   = (1 << 1)
+      OPENMPT_ERROR_FUNC_RESULT_DEFAULT =
+        (OPENMPT_ERROR_FUNC_RESULT_LOG | OPENMPT_ERROR_FUNC_RESULT_STORE)
+
+      ErrorDefault =
+        attach_function :openmpt_error_func_default, [:int, :pointer], :int
+      ErrorLog =
+        attach_function :openmpt_error_func_log, [:int, :pointer], :int
+      ErrorStore =
+        attach_function :openmpt_error_func_store, [:int, :pointer], :int
+      ErrorIgnore =
+        attach_function :openmpt_error_func_ignore, [:int, :pointer], :int
     end
   end
 end

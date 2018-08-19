@@ -28,4 +28,15 @@ class FFI::OpenMPT::APITest < Minitest::Test
     assert_nil openmpt_log_func_default('hello', nil)
     assert_nil openmpt_log_func_silent('hello', nil)
   end
+
+  def test_error_funcs
+    assert_equal openmpt_error_func_default(1, nil),
+                 OPENMPT_ERROR_FUNC_RESULT_DEFAULT
+    assert_equal openmpt_error_func_log(1, nil),
+                 OPENMPT_ERROR_FUNC_RESULT_LOG
+    assert_equal openmpt_error_func_store(1, nil),
+                 OPENMPT_ERROR_FUNC_RESULT_STORE
+    assert_equal openmpt_error_func_ignore(1, nil),
+                 OPENMPT_ERROR_FUNC_RESULT_NONE
+  end
 end
