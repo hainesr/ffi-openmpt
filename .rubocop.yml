@@ -26,3 +26,18 @@ Layout/EmptyLinesAroundModuleBody:
 Style/ClassAndModuleChildren:
   Exclude:
     - 'test/**/*'
+
+# Ignore ABC failures in the tests.
+Metrics/AbcSize:
+  Exclude:
+    - 'test/**/*.rb'
+
+# Set a more reasonable method length and ignore failures in the tests.
+Metrics/MethodLength:
+  Exclude:
+    - 'test/**/*.rb'
+
+# Set a more reasonable class length and ignore failures in the tests.
+Metrics/ClassLength:
+  Exclude:
+    - 'test/**/*.rb'

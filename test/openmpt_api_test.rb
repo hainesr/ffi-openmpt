@@ -70,20 +70,51 @@ class FFI::OpenMPT::APITest < Minitest::Test
   end
 
   def test_module_read_stereo
-    left = ::FFI::MemoryPointer.new(:short, 480)
-    right = ::FFI::MemoryPointer.new(:short, 480)
+    srate = 48_000
+    duration = 10
+    frames = srate / duration
+
+    raw = ::File.read(RAW_LAST_SUN_INT16)
+    left = ::FFI::MemoryPointer.new(:short, frames)
+    right = ::FFI::MemoryPointer.new(:short, frames)
+
     module_test(MOD_LAST_SUN) do |mod|
-      count = openmpt_module_read_stereo(mod, 48_000, 480, left, right)
-      assert_equal 480, count
+      100.times do |i|
+        count = openmpt_module_read_stereo(mod, srate, frames, left, right)
+        assert_equal frames, count
+
+        rendered = left.read_array_of_int16(count)
+                       .zip(right.read_array_of_int16(count)).flatten
+
+        bytesize = frames * 2 * 2
+        oracle = raw.byteslice((i * bytesize), bytesize).unpack('s*')
+        assert_equal rendered, oracle
+      end
     end
   end
 
   def test_module_read_float_stereo
-    left = ::FFI::MemoryPointer.new(:float, 480)
-    right = ::FFI::MemoryPointer.new(:float, 480)
+    srate = 48_000
+    duration = 10
+    frames = srate / duration
+
+    raw = ::File.read(RAW_LAST_SUN_FLOAT)
+    left = ::FFI::MemoryPointer.new(:float, frames)
+    right = ::FFI::MemoryPointer.new(:float, frames)
+
     module_test(MOD_LAST_SUN) do |mod|
-      count = openmpt_module_read_float_stereo(mod, 48_000, 480, left, right)
-      assert_equal 480, count
+      100.times do |i|
+        count =
+          openmpt_module_read_float_stereo(mod, srate, frames, left, right)
+        assert_equal frames, count
+
+        rendered = left.read_array_of_float(count)
+                       .zip(right.read_array_of_float(count)).flatten
+
+        bytesize = frames * 2 * 4
+        oracle = raw.byteslice((i * bytesize), bytesize).unpack('e*')
+        assert_equal rendered, oracle
+      end
     end
   end
 
