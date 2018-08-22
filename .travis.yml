@@ -1,12 +1,13 @@
 language: ruby
 
-sudo: required
+sudo: false
 
 cache: bundler
 
 before_install:
   - gem install bundler -v 1.16.1
-  - sudo apt-get install -y libopenmpt
+  - ./test/install-libopenmpt.sh
+  - export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$TRAVIS_BUILD_DIR/usr/lib
 
 rvm:
   - 2.2.10
