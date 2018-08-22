@@ -1,13 +1,12 @@
 language: ruby
 
-sudo: false
+sudo: required
 
 cache: bundler
 
-addons:
-  apt:
-    packages:
-      - libopenmpt
+before_install:
+  - gem install bundler -v 1.16.1
+  - sudo apt-get install -y libopenmpt
 
 rvm:
   - 2.2.10
@@ -21,5 +20,3 @@ matrix:
   allow_failures:
     - rvm: rbx-3
     - rvm: ruby-head
-
-before_install: gem install bundler -v 1.16.1
