@@ -8,12 +8,6 @@ require 'test_helper'
 
 class FFI::OpenMPTTest < Minitest::Test
 
-  def test_that_it_has_a_version_number
-    version = ::FFI::OpenMPT::VERSION
-    refute_nil version
-    assert_kind_of String, version
-  end
-
   def test_the_library_version_number
     version = ::FFI::OpenMPT.library_version
     refute_nil version
