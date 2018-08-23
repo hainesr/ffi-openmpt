@@ -49,8 +49,14 @@ module FFI
       attach_function :openmpt_module_read_stereo,
                       [:pointer, :int, :int, :pointer, :pointer],
                       :int
+      attach_function :openmpt_module_read_interleaved_stereo,
+                      [:pointer, :int, :int, :pointer],
+                      :int
       attach_function :openmpt_module_read_float_stereo,
                       [:pointer, :int, :int, :pointer, :pointer],
+                      :int
+      attach_function :openmpt_module_read_interleaved_float_stereo,
+                      [:pointer, :int, :int, :pointer],
                       :int
     end
   end
