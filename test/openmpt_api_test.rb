@@ -58,6 +58,19 @@ class FFI::OpenMPT::APITest < Minitest::Test
     assert_nil openmpt_log_func_silent('hello', nil)
   end
 
+  def test_error_information_funcs
+    assert_equal openmpt_error_is_transient(OPENMPT_ERROR_OUT_OF_MEMORY), 1
+    assert_equal openmpt_error_is_transient(OPENMPT_ERROR_LOGIC), 0
+
+    err = openmpt_error_string(OPENMPT_ERROR_OUT_OF_MEMORY)
+    assert_equal err.read_string, 'out of memory'
+    openmpt_free_string(err)
+
+    err = openmpt_error_string(11_111)
+    assert_equal err.read_string, 'unknown error'
+    openmpt_free_string(err)
+  end
+
   def test_error_funcs
     assert_equal openmpt_error_func_default(1, nil),
                  OPENMPT_ERROR_FUNC_RESULT_DEFAULT

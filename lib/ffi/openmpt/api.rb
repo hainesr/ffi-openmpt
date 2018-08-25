@@ -26,6 +26,31 @@ module FFI
         attach_function :openmpt_log_func_silent, [:string, :pointer], :void
 
       # Error handling API calls
+      OPENMPT_ERROR_OK                     = 0
+      OPENMPT_ERROR_BASE                   = 256
+
+      OPENMPT_ERROR_UNKNOWN                = OPENMPT_ERROR_BASE + 1
+      OPENMPT_ERROR_EXCEPTION              = OPENMPT_ERROR_BASE + 11
+      OPENMPT_ERROR_OUT_OF_MEMORY          = OPENMPT_ERROR_BASE + 21
+
+      OPENMPT_ERROR_RUNTIME                = OPENMPT_ERROR_BASE + 30
+      OPENMPT_ERROR_RANGE                  = OPENMPT_ERROR_BASE + 31
+      OPENMPT_ERROR_OVERFLOW               = OPENMPT_ERROR_BASE + 32
+      OPENMPT_ERROR_UNDERFLOW              = OPENMPT_ERROR_BASE + 33
+
+      OPENMPT_ERROR_LOGIC                  = OPENMPT_ERROR_BASE + 40
+      OPENMPT_ERROR_DOMAIN                 = OPENMPT_ERROR_BASE + 41
+      OPENMPT_ERROR_LENGTH                 = OPENMPT_ERROR_BASE + 42
+      OPENMPT_ERROR_OUT_OF_RANGE           = OPENMPT_ERROR_BASE + 43
+      OPENMPT_ERROR_INVALID_ARGUMENT       = OPENMPT_ERROR_BASE + 44
+
+      OPENMPT_ERROR_GENERAL                = OPENMPT_ERROR_BASE + 101
+      OPENMPT_ERROR_INVALID_MODULE_POINTER = OPENMPT_ERROR_BASE + 102
+      OPENMPT_ERROR_ARGUMENT_NULL_POINTER  = OPENMPT_ERROR_BASE + 103
+
+      attach_function :openmpt_error_is_transient, [:int], :int
+      attach_function :openmpt_error_string, [:int], :pointer
+
       OPENMPT_ERROR_FUNC_RESULT_NONE    = 0
       OPENMPT_ERROR_FUNC_RESULT_LOG     = (1 << 0)
       OPENMPT_ERROR_FUNC_RESULT_STORE   = (1 << 1)
