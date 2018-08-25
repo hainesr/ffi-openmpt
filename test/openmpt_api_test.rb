@@ -36,6 +36,23 @@ class FFI::OpenMPT::APITest < Minitest::Test
     openmpt_free_string(string)
   end
 
+  def test_get_extensions
+    exts = openmpt_get_supported_extensions
+    refute_equal exts.read_string, ''
+    assert exts.read_string.include?(';')
+    openmpt_free_string(exts)
+  end
+
+  def test_extension_supported
+    %w[mod med stm xm it].each do |ext|
+      assert_equal openmpt_is_extension_supported(ext), 1
+    end
+
+    %w[aaa bbb ccc].each do |ext|
+      assert_equal openmpt_is_extension_supported(ext), 0
+    end
+  end
+
   def test_logging_funcs
     assert_nil openmpt_log_func_default('hello', nil)
     assert_nil openmpt_log_func_silent('hello', nil)

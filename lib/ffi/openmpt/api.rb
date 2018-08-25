@@ -18,6 +18,8 @@ module FFI
       # String API calls
       attach_function :openmpt_free_string, [:pointer], :void
       attach_function :openmpt_get_string, [:string], :pointer
+      attach_function :openmpt_get_supported_extensions, [], :pointer
+      attach_function :openmpt_is_extension_supported, [:string], :int
 
       # Logging API calls
       LogDefault =
