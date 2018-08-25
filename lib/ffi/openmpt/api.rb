@@ -67,6 +67,7 @@ module FFI
         attach_function :openmpt_error_func_ignore, [:int, :pointer], :int
 
       # Module API calls
+      # Creational module calls
       attach_function :openmpt_module_create_from_memory2,
                       [
                         :pointer, :int, :pointer, :pointer, :pointer,
@@ -74,7 +75,11 @@ module FFI
                       ],
                       :pointer
       attach_function :openmpt_module_destroy, [:pointer], :void
+
+      # Informational module calls
       attach_function :openmpt_module_get_duration_seconds, [:pointer], :double
+
+      # Read module calls
       attach_function :openmpt_module_read_stereo,
                       [:pointer, :int, :int, :pointer, :pointer],
                       :int
