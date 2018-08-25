@@ -24,6 +24,18 @@ class FFI::OpenMPT::APITest < Minitest::Test
     assert_kind_of Integer, version
   end
 
+  def test_get_string
+    string = openmpt_get_string('url')
+    assert_equal string.read_string, 'https://lib.openmpt.org/'
+    openmpt_free_string(string)
+  end
+
+  def test_get_bad_string
+    string = openmpt_get_string('xxxx')
+    assert_equal string.read_string, ''
+    openmpt_free_string(string)
+  end
+
   def test_logging_funcs
     assert_nil openmpt_log_func_default('hello', nil)
     assert_nil openmpt_log_func_silent('hello', nil)
