@@ -76,11 +76,13 @@ module FFI
                       :pointer
       attach_function :openmpt_module_destroy, [:pointer], :void
 
-      # Informational/error module calls
+      # Informational module calls
       attach_function :openmpt_module_get_duration_seconds, [:pointer], :double
       attach_function :openmpt_module_get_metadata_keys, [:pointer], :pointer
       attach_function :openmpt_module_get_metadata,
                       [:pointer, :string], :pointer
+
+      # Error module calls
       attach_function :openmpt_module_error_get_last, [:pointer], :int
       attach_function :openmpt_module_error_set_last, [:pointer, :int], :void
       attach_function :openmpt_module_error_get_last_message,
