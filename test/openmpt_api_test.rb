@@ -111,6 +111,23 @@ class FFI::OpenMPT::APITest < Minitest::Test
     end
   end
 
+  def test_module_metadata
+    module_test(MOD_LAST_SUN) do |mod|
+      keys = openmpt_module_get_metadata_keys(mod)
+      refute_equal keys.read_string, ''
+      assert keys.read_string.include?(';')
+      openmpt_free_string(keys)
+
+      data = openmpt_module_get_metadata(mod, 'type')
+      assert_equal data.read_string, 'mod'
+      openmpt_free_string(data)
+
+      data = openmpt_module_get_metadata(mod, 'xxxx')
+      assert_equal data.read_string, ''
+      openmpt_free_string(data)
+    end
+  end
+
   def test_get_set_module_errors
     module_test(MOD_LAST_SUN) do |mod|
       errno = openmpt_module_error_get_last(mod)
