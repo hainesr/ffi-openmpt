@@ -111,6 +111,24 @@ class FFI::OpenMPT::APITest < Minitest::Test
     end
   end
 
+  def test_get_set_module_errors
+    module_test(MOD_LAST_SUN) do |mod|
+      errno = openmpt_module_error_get_last(mod)
+      err = openmpt_module_error_get_last_message(mod)
+      assert_equal errno, OPENMPT_ERROR_OK
+      assert_equal err.read_string, ''
+      openmpt_free_string(err)
+
+      openmpt_module_error_set_last(mod, OPENMPT_ERROR_UNKNOWN)
+      errno = openmpt_module_error_get_last(mod)
+      assert_equal errno, OPENMPT_ERROR_UNKNOWN
+
+      openmpt_module_error_clear(mod)
+      errno = openmpt_module_error_get_last(mod)
+      assert_equal errno, OPENMPT_ERROR_OK
+    end
+  end
+
   def test_module_read_stereo
     srate = 48_000
     duration = 10
