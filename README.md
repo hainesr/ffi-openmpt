@@ -45,7 +45,9 @@ $ gem install ffi-openmpt
 
 ### Usage
 
-The library wraps the C `libopenmpt` directly: all methods have the same name and signature as their C counterparts. A more friendly ruby-like interface is in development, which will hide the FFI details as much as possible.
+The library wraps the C `libopenmpt` API directly: methods have the same name and signature as their C counterparts. A more friendly ruby-like interface is in development, which will hide the FFI details as much as possible.
+
+Not all `libopenmpt` methods are wrapped yet, but enough functionality is supplied to load a module, interogate it and render it to a PCM stream.
 
 #### A note on strings returned by `libopenmpt`
 
