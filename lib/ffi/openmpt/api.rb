@@ -11,11 +11,9 @@ module FFI
 
       ffi_lib 'libopenmpt.so.0'
 
-      # Version API calls
+      # Top-level (library) informational API calls
       attach_function :openmpt_get_library_version, [], :uint
       attach_function :openmpt_get_core_version, [], :uint
-
-      # String API calls
       attach_function :openmpt_free_string, [:pointer], :void
       attach_function :openmpt_get_string, [:string], :pointer
       attach_function :openmpt_get_supported_extensions, [], :pointer
