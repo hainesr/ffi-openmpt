@@ -146,6 +146,20 @@ class FFI::OpenMPT::APITest < Minitest::Test
     end
   end
 
+  def test_probe_file_header
+    size = openmpt_probe_file_header_get_recommended_size
+    assert size.positive?
+
+    data = load_mod_data(MOD_LAST_SUN)
+    probe_data = data.read_bytes(size)
+
+    load = openmpt_probe_file_header(
+      OPENMPT_PROBE_FILE_HEADER_FLAGS_DEFAULT,
+      probe_data, size, data.size, LogSilent, nil, ErrorIgnore, nil, nil, nil
+    )
+    assert_equal load, OPENMPT_PROBE_FILE_HEADER_RESULT_SUCCESS
+  end
+
   def test_module_read_stereo
     srate = 48_000
     duration = 10

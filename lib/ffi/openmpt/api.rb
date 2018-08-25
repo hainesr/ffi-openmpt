@@ -89,6 +89,27 @@ module FFI
                       [:pointer], :pointer
       attach_function :openmpt_module_error_clear, [:pointer], :void
 
+      # Probe module calls
+      OPENMPT_PROBE_FILE_HEADER_FLAGS_NONE          = 0x0
+      OPENMPT_PROBE_FILE_HEADER_FLAGS_MODULES       = 0x1
+      OPENMPT_PROBE_FILE_HEADER_FLAGS_CONTAINERS    = 0x2
+      OPENMPT_PROBE_FILE_HEADER_FLAGS_DEFAULT       =
+        (OPENMPT_PROBE_FILE_HEADER_FLAGS_MODULES |
+          OPENMPT_PROBE_FILE_HEADER_FLAGS_CONTAINERS)
+
+      OPENMPT_PROBE_FILE_HEADER_RESULT_FAILURE      = 0
+      OPENMPT_PROBE_FILE_HEADER_RESULT_SUCCESS      = 1
+      OPENMPT_PROBE_FILE_HEADER_RESULT_WANTMOREDATA = -1
+      OPENMPT_PROBE_FILE_HEADER_RESULT_ERROR        = -255
+
+      attach_function :openmpt_probe_file_header_get_recommended_size, [], :int
+      attach_function :openmpt_probe_file_header,
+                      [
+                        :uint, :pointer, :int, :uint, :pointer, :pointer,
+                        :pointer, :pointer, :pointer, :pointer
+                      ],
+                      :int
+
       # Read module calls
       attach_function :openmpt_module_read_stereo,
                       [:pointer, :int, :int, :pointer, :pointer],
