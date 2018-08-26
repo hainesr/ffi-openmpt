@@ -188,6 +188,13 @@ class FFI::OpenMPT::APITest < Minitest::Test
       samples = openmpt_module_get_num_samples(mod)
       assert_kind_of Integer, samples
       assert_equal samples, 15
+
+      samples.times do |i|
+        name = openmpt_module_get_sample_name(mod, i)
+        refute_nil name
+        assert_equal name.read_string, SAMPLE_NAMES_LAST_SUN[i]
+        openmpt_free_string(name)
+      end
     end
   end
 
