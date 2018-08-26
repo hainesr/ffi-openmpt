@@ -94,6 +94,8 @@ module FFI
       attach_function :openmpt_module_get_pattern_name,
                       [:pointer, :int], :pointer
       attach_function :openmpt_module_get_num_instruments, [:pointer], :int
+      attach_function :openmpt_module_get_instrument_name,
+                      [:pointer, :int], :pointer
       attach_function :openmpt_module_get_num_samples, [:pointer], :int
 
       # Error module calls
