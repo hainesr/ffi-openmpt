@@ -167,6 +167,13 @@ class FFI::OpenMPT::APITest < Minitest::Test
       assert_kind_of Integer, patterns
       assert_equal patterns, 20
 
+      patterns.times do |i|
+        name = openmpt_module_get_pattern_name(mod, i)
+        refute_nil name
+        assert_equal name.read_string, ''
+        openmpt_free_string(name)
+      end
+
       instruments = openmpt_module_get_num_instruments(mod)
       assert_kind_of Integer, instruments
       assert_equal instruments, 0
