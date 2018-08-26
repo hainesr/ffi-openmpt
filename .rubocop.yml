@@ -22,6 +22,10 @@ Layout/EmptyLinesAroundClassBody:
 Layout/EmptyLinesAroundModuleBody:
   Enabled: false
 
+# Don't enforce things like #positive? due to older rubies not supporting it
+Style/NumericPredicate:
+  EnforcedStyle: comparison
+
 # Allow compact child definitions in the tests for brevity.
 Style/ClassAndModuleChildren:
   Exclude:
