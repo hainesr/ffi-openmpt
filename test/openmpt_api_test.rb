@@ -134,6 +134,13 @@ class FFI::OpenMPT::APITest < Minitest::Test
       assert_kind_of Integer, songs
       assert_equal songs, 1
 
+      songs.times do |i|
+        name = openmpt_module_get_subsong_name(mod, i)
+        refute_nil name
+        assert_equal name.read_string, ''
+        openmpt_free_string(name)
+      end
+
       channels = openmpt_module_get_num_channels(mod)
       assert_kind_of Integer, channels
       assert_equal channels, 4
