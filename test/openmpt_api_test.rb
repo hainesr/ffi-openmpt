@@ -149,6 +149,10 @@ class FFI::OpenMPT::APITest < Minitest::Test
       instruments = openmpt_module_get_num_instruments(mod)
       assert_kind_of Integer, instruments
       assert_equal instruments, 0
+
+      samples = openmpt_module_get_num_samples(mod)
+      assert_kind_of Integer, samples
+      assert_equal samples, 15
     end
   end
 
