@@ -47,8 +47,10 @@ Metrics/ClassLength:
     - 'test/**/*.rb'
 
 # Set a more reasonable module length and ignore failures in the tests.
+# Also allow the API module to be very long as it just maps lots of methods.
 Metrics/ModuleLength:
   Exclude:
+    - 'lib/ffi/openmpt/api.rb'
     - 'test/**/*.rb'
 
 # Set a more reasonable block length and ignore failures in the tests.
