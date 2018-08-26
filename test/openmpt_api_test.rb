@@ -145,6 +145,13 @@ class FFI::OpenMPT::APITest < Minitest::Test
       assert_kind_of Integer, channels
       assert_equal channels, 4
 
+      channels.times do |i|
+        name = openmpt_module_get_channel_name(mod, i)
+        refute_nil name
+        assert_equal name.read_string, ''
+        openmpt_free_string(name)
+      end
+
       orders = openmpt_module_get_num_orders(mod)
       assert_kind_of Integer, orders
       assert_equal orders, 35
