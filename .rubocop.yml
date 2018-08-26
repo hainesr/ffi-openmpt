@@ -45,3 +45,8 @@ Metrics/MethodLength:
 Metrics/ClassLength:
   Exclude:
     - 'test/**/*.rb'
+
+# Set a more reasonable block length and ignore failures in the tests.
+Metrics/BlockLength:
+  Exclude:
+    - 'test/**/*.rb'
