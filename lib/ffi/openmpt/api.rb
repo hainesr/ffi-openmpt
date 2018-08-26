@@ -81,6 +81,7 @@ module FFI
       attach_function :openmpt_module_get_metadata_keys, [:pointer], :pointer
       attach_function :openmpt_module_get_metadata,
                       [:pointer, :string], :pointer
+      attach_function :openmpt_module_get_num_subsongs, [:pointer], :int
 
       # Error module calls
       attach_function :openmpt_module_error_get_last, [:pointer], :int

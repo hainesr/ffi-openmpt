@@ -128,6 +128,14 @@ class FFI::OpenMPT::APITest < Minitest::Test
     end
   end
 
+  def test_other_informational_module_funcs
+    module_test(MOD_LAST_SUN) do |mod|
+      songs = openmpt_module_get_num_subsongs(mod)
+      assert_kind_of Integer, songs
+      assert_equal songs, 1
+    end
+  end
+
   def test_get_set_module_errors
     module_test(MOD_LAST_SUN) do |mod|
       errno = openmpt_module_error_get_last(mod)
