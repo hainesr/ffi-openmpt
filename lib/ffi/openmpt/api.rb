@@ -128,6 +128,17 @@ module FFI
                       ],
                       :int
 
+      # Render param module calls
+      OPENMPT_MODULE_RENDER_MASTERGAIN_MILLIBEL        = 1
+      OPENMPT_MODULE_RENDER_STEREOSEPARATION_PERCENT   = 2
+      OPENMPT_MODULE_RENDER_INTERPOLATIONFILTER_LENGTH = 3
+      OPENMPT_MODULE_RENDER_VOLUMERAMPING_STRENGTH     = 4
+
+      attach_function :openmpt_module_get_render_param,
+                      [:pointer, :int, :pointer], :int
+      attach_function :openmpt_module_set_render_param,
+                      [:pointer, :int, :int], :int
+
       # Read module calls
       attach_function :openmpt_module_read_stereo,
                       [:pointer, :int, :int, :pointer, :pointer],

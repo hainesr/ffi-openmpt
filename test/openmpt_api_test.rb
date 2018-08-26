@@ -230,6 +230,31 @@ class FFI::OpenMPT::APITest < Minitest::Test
     assert_equal load, OPENMPT_PROBE_FILE_HEADER_RESULT_SUCCESS
   end
 
+  def test_module_get_and_set_render_params
+    module_test(MOD_LAST_SUN) do |mod|
+      value = ::FFI::MemoryPointer.new(:int, 1)
+      [
+        [OPENMPT_MODULE_RENDER_MASTERGAIN_MILLIBEL, 0, 100],
+        [OPENMPT_MODULE_RENDER_STEREOSEPARATION_PERCENT, 100, 200],
+        [OPENMPT_MODULE_RENDER_INTERPOLATIONFILTER_LENGTH, 8, 2],
+        [OPENMPT_MODULE_RENDER_VOLUMERAMPING_STRENGTH, -1, 10]
+      ].each do |param, default, changed|
+        result = openmpt_module_get_render_param(mod, param, nil)
+        assert_equal result, 0
+
+        result = openmpt_module_get_render_param(mod, param, value)
+        assert_equal result, 1
+        assert_equal value.read_int, default
+
+        result = openmpt_module_set_render_param(mod, param, changed)
+        assert_equal result, 1
+        result = openmpt_module_get_render_param(mod, param, value)
+        assert_equal result, 1
+        assert_equal value.read_int, changed
+      end
+    end
+  end
+
   def test_module_read_stereo
     srate = 48_000
     duration = 10
