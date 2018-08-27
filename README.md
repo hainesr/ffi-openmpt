@@ -62,6 +62,35 @@ openmpt_free_string(ptr)
 puts str
 ```
 
+### Example scripts
+
+Scripts in the `examples` directory show how to use the `ffi-openmpt` API. You will need to make sure that `ffi-openmpt` is on your `RUBYLIB` path, or run the examples with `bundle exec`.
+
+#### `mod-info`
+
+Display information about a mod file, for example:
+
+```shell
+$ ./mod-info lastsun.mod
+
+Ruby OpenMPT (ffi-openmpt) file interrogator.
+---------------------------------------------
+
+Filename...: lastsun.mod
+Size.......: 106k
+Type.......: mod
+Format.....: Generic Amiga / PC MOD file
+Tracker....: Master Soundtracker 1.0
+Title......: the last sun
+Duration...: 3:56.4
+Subsongs...: 1
+Channels...: 4
+Orders.....: 35
+Patterns...: 20
+Intruments.: 0
+Samples....: 15
+```
+
 ### Library versions
 
 Until this library reaches version 1.0.0 the API may be subject to breaking changes. When version 1.0.0 is released, then the principles of [semantic versioning][semver] will be applied.
