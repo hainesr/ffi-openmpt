@@ -61,6 +61,30 @@ module FFI
         openmpt_module_get_duration_seconds(@mod)
       end
 
+      def subsongs
+        openmpt_module_get_num_subsongs(@mod)
+      end
+
+      def channels
+        openmpt_module_get_num_channels(@mod)
+      end
+
+      def orders
+        openmpt_module_get_num_orders(@mod)
+      end
+
+      def patterns
+        openmpt_module_get_num_patterns(@mod)
+      end
+
+      def instruments
+        openmpt_module_get_num_instruments(@mod)
+      end
+
+      def samples
+        openmpt_module_get_num_samples(@mod)
+      end
+
       def metadata(key)
         return unless METADATA_KEYS.include?(key)
         get_openmpt_string(:openmpt_module_get_metadata, key.to_s)

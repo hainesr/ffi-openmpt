@@ -34,9 +34,15 @@ class FFI::OpenMPT::ModuleTest < Minitest::Test
     end
   end
 
-  def test_duration
+  def test_informational_calls
     ::FFI::OpenMPT::Module.open(MOD_LAST_SUN) do |mod|
       assert_in_epsilon mod.duration, 236.4, 0.001
+      assert_equal mod.subsongs, 1
+      assert_equal mod.channels, 4
+      assert_equal mod.orders, 35
+      assert_equal mod.patterns, 20
+      assert_equal mod.instruments, 0
+      assert_equal mod.samples, 15
     end
   end
 
