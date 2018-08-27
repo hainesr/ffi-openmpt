@@ -73,4 +73,18 @@ class FFI::OpenMPT::ModuleTest < Minitest::Test
 
     assert_nil m.metadata(:title)
   end
+
+  def test_metadata_as_methods
+    m = ::FFI::OpenMPT::Module.open(MOD_LAST_SUN) do |mod|
+      METADATA_KEYS_LAST_SUN.each do |key, value|
+        assert_equal mod.send(key), value
+      end
+
+      assert_raises(NoMethodError) do
+        mod.xxxx
+      end
+    end
+
+    assert_nil m.title
+  end
 end

@@ -108,6 +108,14 @@ module FFI
         @closed
       end
 
+      def method_missing(name, *args)
+        respond_to?(name) ? metadata(name) : super
+      end
+
+      def respond_to_missing?(name, *all)
+        METADATA_KEYS.include?(name) || super
+      end
+
       private
 
       def read_mod(filename)
