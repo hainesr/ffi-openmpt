@@ -26,6 +26,10 @@ Layout/EmptyLinesAroundModuleBody:
 Style/NumericPredicate:
   EnforcedStyle: comparison
 
+Style/MixinUsage:
+  Exclude:
+    - 'examples/**/*'
+
 # Allow compact child definitions in the tests for brevity.
 Style/ClassAndModuleChildren:
   Exclude:
@@ -38,6 +42,7 @@ Metrics/AbcSize:
 
 # Set a more reasonable method length and ignore failures in the tests.
 Metrics/MethodLength:
+  Max: 15
   Exclude:
     - 'test/**/*.rb'
 

@@ -1,0 +1,105 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+# Copyright (c) 2018 Robert Haines.
+#
+# Licensed under the BSD License. See LICENCE for details.
+
+require 'ffi/openmpt'
+
+include ::FFI::OpenMPT::API
+
+def check_mod_error(mod)
+  error = openmpt_module_error_get_last(mod)
+  return if error == OPENMPT_ERROR_OK
+
+  trans = openmpt_error_is_transient(error)
+  message_ptr = openmpt_module_error_get_last_message(mod)
+  message = message_ptr.read_string
+  openmpt_free_string(message_ptr)
+
+  if trans == 0
+    puts "Error! '#{message}'. Exiting."
+    exit(1)
+  else
+    puts "Warning: '#{message}'. Trying to carry on."
+  end
+end
+
+if ARGV[0].nil?
+  puts 'Please supply a filename to interrogate.'
+  exit(1)
+end
+
+mod_path = ARGV[0].chomp
+
+# Does this file exist? Is it readable?
+unless ::File.readable?(mod_path)
+  puts "'#{mod_path}' does not exist, or is not readable."
+  exit(1)
+end
+
+mod_data = ::File.read(mod_path)
+mod_file = ::File.basename(mod_path)
+mod_size = mod_data.bytesize / 1_024
+
+# Can libopenmpt open this file?
+probe_size = openmpt_probe_file_header_get_recommended_size
+probe_result = openmpt_probe_file_header(
+  OPENMPT_PROBE_FILE_HEADER_FLAGS_DEFAULT,
+  mod_data.byteslice(0, probe_size),
+  probe_size,
+  mod_data.bytesize,
+  LogSilent, nil, ErrorIgnore, nil, nil, nil
+)
+
+unless probe_result == OPENMPT_PROBE_FILE_HEADER_RESULT_SUCCESS
+  puts 'libopenmpt can not open this file. Are you sure it is a mod?'
+  exit(1)
+end
+
+puts
+puts 'Ruby OpenMPT (ffi-openmpt) file interrogator.'
+puts '---------------------------------------------'
+puts
+puts "Filename...: #{mod_file}"
+puts "Size.......: #{mod_size}k"
+
+# Load the mod.
+mod = openmpt_module_create_from_memory2(
+  mod_data,
+  mod_data.bytesize,
+  LogSilent, nil, ErrorIgnore, nil, nil, nil, nil
+)
+check_mod_error(mod)
+
+# Mod metadata.
+[
+  ['type', 'Type.......:'],
+  ['type_long', 'Format.....:'],
+  ['tracker', 'Tracker....:'],
+  ['title', 'Title......:']
+].each do |key, display|
+  value = openmpt_module_get_metadata(mod, key)
+  puts "#{display} #{value.read_string}"
+  openmpt_free_string(value)
+end
+
+# Mod duration.
+duration = openmpt_module_get_duration_seconds(mod)
+duration_mins = duration.floor / 60
+duration_secs = duration % 60
+puts "Duration...: #{duration_mins}:#{duration_secs.round(3)}"
+
+# Other Mod information.
+[
+  [:openmpt_module_get_num_subsongs, 'Subsongs...:'],
+  [:openmpt_module_get_num_channels, 'Channels...:'],
+  [:openmpt_module_get_num_orders, 'Orders.....:'],
+  [:openmpt_module_get_num_patterns, 'Patterns...:'],
+  [:openmpt_module_get_num_instruments, 'Intruments.:'],
+  [:openmpt_module_get_num_samples, 'Samples....:']
+].each do |func, display|
+  value = send(func, mod)
+  puts "#{display} #{value}"
+end
