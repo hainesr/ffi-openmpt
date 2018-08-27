@@ -39,7 +39,7 @@ unless ::File.readable?(mod_path)
   exit(1)
 end
 
-mod_data = ::File.read(mod_path)
+mod_data = ::File.binread(mod_path)
 mod_file = ::File.basename(mod_path)
 mod_size = mod_data.bytesize / 1_024
 
