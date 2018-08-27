@@ -14,3 +14,4 @@ end
 require 'ffi/openmpt/version'
 require 'ffi/openmpt/api'
 require 'ffi/openmpt/openmpt'
+require 'ffi/openmpt/module'
