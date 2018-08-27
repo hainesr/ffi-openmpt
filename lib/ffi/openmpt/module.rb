@@ -10,6 +10,20 @@ module FFI
 
       include API
 
+      METADATA_KEYS = [
+        :type,
+        :type_long,
+        :container,
+        :container_long,
+        :tracker,
+        :artist,
+        :title,
+        :date,
+        :message,
+        :message_raw,
+        :warnings
+      ].freeze
+
       def initialize(filename)
         @mod = read_mod(filename)
       end
@@ -43,6 +57,11 @@ module FFI
         probe_result == OPENMPT_PROBE_FILE_HEADER_RESULT_SUCCESS
       end
 
+      def metadata(key)
+        return unless METADATA_KEYS.include?(key)
+        get_openmpt_string(:openmpt_module_get_metadata, key.to_s)
+      end
+
       def close
         openmpt_module_destroy(@mod)
       end
@@ -56,6 +75,14 @@ module FFI
           data.bytesize,
           LogSilent, nil, ErrorIgnore, nil, nil, nil, nil
         )
+      end
+
+      def get_openmpt_string(method, *args)
+        ptr = send(method, @mod, *args)
+        str = ptr.read_string
+        openmpt_free_string(ptr)
+
+        str
       end
     end
   end

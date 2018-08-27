@@ -33,4 +33,14 @@ class FFI::OpenMPT::ModuleTest < Minitest::Test
       refute_equal mod, 0
     end
   end
+
+  def test_metadata
+    ::FFI::OpenMPT::Module.open(MOD_LAST_SUN) do |mod|
+      METADATA_KEYS_LAST_SUN.each do |key, value|
+        assert_equal mod.metadata(key), value
+      end
+
+      assert_nil mod.metadata(:xxxx)
+    end
+  end
 end
