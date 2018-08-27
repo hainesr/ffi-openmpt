@@ -1,0 +1,54 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+# Copyright (c) 2018 Robert Haines.
+#
+# Licensed under the BSD License. See LICENCE for details.
+
+require 'ffi/openmpt'
+
+if ARGV[0].nil?
+  puts 'Please supply a filename to interrogate.'
+  exit(1)
+end
+
+mod_path = ARGV[0].chomp
+
+# Does this file exist? Is it readable?
+unless ::File.readable?(mod_path)
+  puts "'#{mod_path}' does not exist, or is not readable."
+  exit(1)
+end
+
+mod_file = ::File.basename(mod_path)
+mod_size = ::File.size(mod_path) / 1_024
+
+# Can libopenmpt open this file?
+unless ::FFI::OpenMPT::Module.probe(mod_path)
+  puts 'libopenmpt can not open this file. Are you sure it is a mod?'
+  exit(1)
+end
+
+::FFI::OpenMPT::Module.open(mod_path) do |mod|
+  duration = mod.duration
+  duration_mins = duration.floor / 60
+  duration_secs = duration % 60
+
+  puts
+  puts 'Ruby OpenMPT (ffi-openmpt) file interrogator.'
+  puts '---------------------------------------------'
+  puts
+  puts "Filename...: #{mod_file}"
+  puts "Size.......: #{mod_size}k"
+  puts "Type.......: #{mod.metadata(:type)}"
+  puts "Format.....: #{mod.metadata(:type_long)}"
+  puts "Tracker....: #{mod.metadata(:tracker)}"
+  puts "Title......: #{mod.metadata(:title)}"
+  puts "Duration...: #{duration_mins}:#{duration_secs.round(3)}"
+  puts "Subsongs...: #{mod.subsongs}"
+  puts "Channels...: #{mod.channels}"
+  puts "Orders.....: #{mod.orders}"
+  puts "Patterns...: #{mod.patterns}"
+  puts "Instruments: #{mod.instruments}"
+  puts "Samples....: #{mod.samples}"
+end
