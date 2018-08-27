@@ -24,8 +24,16 @@ class FFI::OpenMPT::ModuleTest < Minitest::Test
 
   def test_open
     mod = ::FFI::OpenMPT::Module.open(MOD_LAST_SUN)
-    refute_equal mod, 0
+    refute mod.closed?
     mod.close
+    assert mod.closed?
+  end
+
+  def test_open_bad
+    mod = ::FFI::OpenMPT::Module.open(RAW_LAST_SUN_INT16)
+    assert mod.closed?
+    mod.close
+    assert mod.closed?
   end
 
   def test_open_block

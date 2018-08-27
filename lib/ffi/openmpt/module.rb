@@ -25,6 +25,7 @@ module FFI
       ].freeze
 
       def initialize(filename)
+        @closed = false
         @mod = read_mod(filename)
       end
 
@@ -91,18 +92,27 @@ module FFI
       end
 
       def close
+        return if closed?
+        @closed = true
         openmpt_module_destroy(@mod)
+      end
+
+      def closed?
+        @closed
       end
 
       private
 
       def read_mod(filename)
         data = ::File.binread(filename)
-        openmpt_module_create_from_memory2(
+        mod = openmpt_module_create_from_memory2(
           data,
           data.bytesize,
           LogSilent, nil, ErrorIgnore, nil, nil, nil, nil
         )
+
+        @closed = (mod.address == 0)
+        mod
       end
 
       def get_openmpt_string(method, *args)
