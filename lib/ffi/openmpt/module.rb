@@ -57,6 +57,10 @@ module FFI
         probe_result == OPENMPT_PROBE_FILE_HEADER_RESULT_SUCCESS
       end
 
+      def duration
+        openmpt_module_get_duration_seconds(@mod)
+      end
+
       def metadata(key)
         return unless METADATA_KEYS.include?(key)
         get_openmpt_string(:openmpt_module_get_metadata, key.to_s)

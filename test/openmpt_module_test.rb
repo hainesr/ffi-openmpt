@@ -34,6 +34,12 @@ class FFI::OpenMPT::ModuleTest < Minitest::Test
     end
   end
 
+  def test_duration
+    ::FFI::OpenMPT::Module.open(MOD_LAST_SUN) do |mod|
+      assert_in_epsilon mod.duration, 236.4, 0.001
+    end
+  end
+
   def test_metadata
     ::FFI::OpenMPT::Module.open(MOD_LAST_SUN) do |mod|
       METADATA_KEYS_LAST_SUN.each do |key, value|
