@@ -59,35 +59,42 @@ module FFI
       end
 
       def duration
+        return if closed?
         openmpt_module_get_duration_seconds(@mod)
       end
 
       def subsongs
+        return if closed?
         openmpt_module_get_num_subsongs(@mod)
       end
 
       def channels
+        return if closed?
         openmpt_module_get_num_channels(@mod)
       end
 
       def orders
+        return if closed?
         openmpt_module_get_num_orders(@mod)
       end
 
       def patterns
+        return if closed?
         openmpt_module_get_num_patterns(@mod)
       end
 
       def instruments
+        return if closed?
         openmpt_module_get_num_instruments(@mod)
       end
 
       def samples
+        return if closed?
         openmpt_module_get_num_samples(@mod)
       end
 
       def metadata(key)
-        return unless METADATA_KEYS.include?(key)
+        return if closed? || !METADATA_KEYS.include?(key)
         get_openmpt_string(:openmpt_module_get_metadata, key.to_s)
       end
 

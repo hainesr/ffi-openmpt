@@ -43,7 +43,7 @@ class FFI::OpenMPT::ModuleTest < Minitest::Test
   end
 
   def test_informational_calls
-    ::FFI::OpenMPT::Module.open(MOD_LAST_SUN) do |mod|
+    m = ::FFI::OpenMPT::Module.open(MOD_LAST_SUN) do |mod|
       assert_in_epsilon mod.duration, 236.4, 0.001
       assert_equal mod.subsongs, 1
       assert_equal mod.channels, 4
@@ -52,15 +52,25 @@ class FFI::OpenMPT::ModuleTest < Minitest::Test
       assert_equal mod.instruments, 0
       assert_equal mod.samples, 15
     end
+
+    assert_nil m.duration
+    assert_nil m.subsongs
+    assert_nil m.channels
+    assert_nil m.orders
+    assert_nil m.patterns
+    assert_nil m.instruments
+    assert_nil m.samples
   end
 
   def test_metadata
-    ::FFI::OpenMPT::Module.open(MOD_LAST_SUN) do |mod|
+    m = ::FFI::OpenMPT::Module.open(MOD_LAST_SUN) do |mod|
       METADATA_KEYS_LAST_SUN.each do |key, value|
         assert_equal mod.metadata(key), value
       end
 
       assert_nil mod.metadata(:xxxx)
     end
+
+    assert_nil m.metadata(:title)
   end
 end
