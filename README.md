@@ -66,7 +66,7 @@ puts str
 
 Scripts in the `examples` directory show how to use the `ffi-openmpt` API. You will need to make sure that `ffi-openmpt` is on your `RUBYLIB` path, or run the examples with `bundle exec`.
 
-#### `mod-info`
+#### `mod-info` and `mod-info-api`
 
 Display information about a mod file, for example:
 
@@ -90,6 +90,8 @@ Patterns...: 20
 Intruments.: 0
 Samples....: 15
 ```
+
+Both `mod-info` and `mod-info-api` output exactly the same data. `mod-info` uses the ruby interface, and `mod-info-api` uses the mapped `libopenmpt` API directly.
 
 ### Library versions
 
