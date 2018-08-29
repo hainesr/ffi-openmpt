@@ -29,4 +29,10 @@ class FFI::OpenMPTTest < Minitest::Test
   def test_bad_string
     assert_equal ::FFI::OpenMPT.string(:xxxx), ''
   end
+
+  def test_supported_extensions
+    exts = ::FFI::OpenMPT.supported_extensions
+    refute_equal exts, ''
+    assert exts.include?(';')
+  end
 end

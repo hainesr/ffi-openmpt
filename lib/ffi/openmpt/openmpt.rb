@@ -22,5 +22,13 @@ module FFI
 
       str
     end
+
+    def self.supported_extensions
+      ptr = API.openmpt_get_supported_extensions
+      str = ptr.read_string
+      API.openmpt_free_string(ptr)
+
+      str
+    end
   end
 end
