@@ -35,4 +35,14 @@ class FFI::OpenMPTTest < Minitest::Test
     refute_equal exts, ''
     assert exts.include?(';')
   end
+
+  def test_extension_supported?
+    [:mod, :med, :stm, :xm, :it].each do |ext|
+      assert ::FFI::OpenMPT.extension_supported?(ext)
+    end
+
+    [:aaa, :bbb, :ccc].each do |ext|
+      refute ::FFI::OpenMPT.extension_supported?(ext)
+    end
+  end
 end

@@ -30,5 +30,10 @@ module FFI
 
       str
     end
+
+    def self.extension_supported?(ext)
+      supported = API.openmpt_is_extension_supported(ext.to_s)
+      supported == 1
+    end
   end
 end
