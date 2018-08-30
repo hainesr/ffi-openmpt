@@ -35,5 +35,20 @@ module FFI
       supported = API.openmpt_is_extension_supported(ext.to_s)
       supported == 1
     end
+
+    def self.probe_file(filename)
+      probe_size = API.openmpt_probe_file_header_get_recommended_size
+      data = ::File.binread(filename, probe_size)
+      data_size = ::File.size(filename)
+      probe_result = API.openmpt_probe_file_header(
+        API::OPENMPT_PROBE_FILE_HEADER_FLAGS_DEFAULT,
+        data,
+        data.bytesize,
+        data_size,
+        API::LogSilent, nil, API::ErrorIgnore, nil, nil, nil
+      )
+
+      probe_result == API::OPENMPT_PROBE_FILE_HEADER_RESULT_SUCCESS
+    end
   end
 end

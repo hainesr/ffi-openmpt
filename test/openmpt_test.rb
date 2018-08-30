@@ -45,4 +45,12 @@ class FFI::OpenMPTTest < Minitest::Test
       refute ::FFI::OpenMPT.extension_supported?(ext)
     end
   end
+
+  def test_probe_good_file
+    assert ::FFI::OpenMPT.probe_file(MOD_LAST_SUN)
+  end
+
+  def test_probe_bad_file
+    refute ::FFI::OpenMPT.probe_file(RAW_LAST_SUN_INT16)
+  end
 end

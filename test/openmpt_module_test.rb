@@ -8,14 +8,6 @@ require 'test_helper'
 
 class FFI::OpenMPT::ModuleTest < Minitest::Test
 
-  def test_probe_good_file
-    assert ::FFI::OpenMPT::Module.probe(MOD_LAST_SUN)
-  end
-
-  def test_probe_bad_file
-    refute ::FFI::OpenMPT::Module.probe(RAW_LAST_SUN_INT16)
-  end
-
   def test_create_and_destroy
     mod = ::FFI::OpenMPT::Module.new(MOD_LAST_SUN)
     refute_equal mod, 0

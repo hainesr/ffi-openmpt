@@ -43,21 +43,6 @@ module FFI
         m
       end
 
-      def self.probe(filename)
-        probe_size = API.openmpt_probe_file_header_get_recommended_size
-        data = ::File.binread(filename, probe_size)
-        data_size = ::File.size(filename)
-        probe_result = API.openmpt_probe_file_header(
-          OPENMPT_PROBE_FILE_HEADER_FLAGS_DEFAULT,
-          data,
-          data.bytesize,
-          data_size,
-          LogSilent, nil, ErrorIgnore, nil, nil, nil
-        )
-
-        probe_result == OPENMPT_PROBE_FILE_HEADER_RESULT_SUCCESS
-      end
-
       def duration
         return if closed?
         openmpt_module_get_duration_seconds(@mod)

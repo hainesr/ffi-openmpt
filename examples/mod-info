@@ -24,7 +24,7 @@ mod_file = ::File.basename(mod_path)
 mod_size = ::File.size(mod_path) / 1_024
 
 # Can libopenmpt open this file?
-unless ::FFI::OpenMPT::Module.probe(mod_path)
+unless ::FFI::OpenMPT.probe_file(mod_path)
   puts 'libopenmpt can not open this file. Are you sure it is a mod?'
   exit(1)
 end
