@@ -103,4 +103,10 @@ class FFI::OpenMPT::ModuleTest < Minitest::Test
       assert_equal mod.stereo_separation, 0
     end
   end
+
+  def test_render_params_filter
+    ::FFI::OpenMPT::Module.open(MOD_LAST_SUN) do |mod|
+      assert_equal mod.interpolation_filter, 8
+    end
+  end
 end

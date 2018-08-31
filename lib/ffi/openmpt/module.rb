@@ -115,6 +115,14 @@ module FFI
         )
       end
 
+      def interpolation_filter
+        success = openmpt_module_get_render_param(
+          @mod, OPENMPT_MODULE_RENDER_INTERPOLATIONFILTER_LENGTH, @int_value
+        )
+
+        success == 1 ? @int_value.read_int : nil
+      end
+
       def close
         return if closed?
         @closed = true
