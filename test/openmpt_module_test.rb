@@ -118,4 +118,10 @@ class FFI::OpenMPT::ModuleTest < Minitest::Test
       assert_equal mod.interpolation_filter, 8
     end
   end
+
+  def test_render_params_ramping
+    ::FFI::OpenMPT::Module.open(MOD_LAST_SUN) do |mod|
+      assert_equal mod.volume_ramping, -1
+    end
+  end
 end

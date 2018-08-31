@@ -129,6 +129,14 @@ module FFI
         )
       end
 
+      def volume_ramping
+        success = openmpt_module_get_render_param(
+          @mod, OPENMPT_MODULE_RENDER_VOLUMERAMPING_STRENGTH, @int_value
+        )
+
+        success == 1 ? @int_value.read_int : nil
+      end
+
       def close
         return if closed?
         @closed = true
