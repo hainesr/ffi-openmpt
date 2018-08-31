@@ -27,6 +27,10 @@ module FFI
       def initialize(filename)
         @closed = false
         @mod = read_mod(filename)
+
+        # Allocate a reusable single int buffer.
+        # This for use by the 'get_render_params'-type calls.
+        @int_value = ::FFI::MemoryPointer.new(:int, 1)
       end
 
       def self.open(filename)
@@ -81,6 +85,14 @@ module FFI
       def metadata(key)
         return if closed? || !METADATA_KEYS.include?(key)
         get_openmpt_string(:openmpt_module_get_metadata, key.to_s)
+      end
+
+      def gain
+        success = openmpt_module_get_render_param(
+          @mod, OPENMPT_MODULE_RENDER_MASTERGAIN_MILLIBEL, @int_value
+        )
+
+        success == 1 ? @int_value.read_int : nil
       end
 
       def close

@@ -79,4 +79,10 @@ class FFI::OpenMPT::ModuleTest < Minitest::Test
 
     assert_nil m.title
   end
+
+  def test_render_params_gain
+    ::FFI::OpenMPT::Module.open(MOD_LAST_SUN) do |mod|
+      assert_equal mod.gain, 0
+    end
+  end
 end
