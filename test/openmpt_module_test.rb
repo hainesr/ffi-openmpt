@@ -122,6 +122,9 @@ class FFI::OpenMPT::ModuleTest < Minitest::Test
   def test_render_params_ramping
     ::FFI::OpenMPT::Module.open(MOD_LAST_SUN) do |mod|
       assert_equal mod.volume_ramping, -1
+
+      mod.volume_ramping = 10
+      assert_equal mod.volume_ramping, 10
     end
   end
 end
