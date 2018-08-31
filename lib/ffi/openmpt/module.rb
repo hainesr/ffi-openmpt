@@ -109,6 +109,12 @@ module FFI
         success == 1 ? @int_value.read_int : nil
       end
 
+      def stereo_separation=(value)
+        openmpt_module_set_render_param(
+          @mod, OPENMPT_MODULE_RENDER_STEREOSEPARATION_PERCENT, value
+        )
+      end
+
       def close
         return if closed?
         @closed = true

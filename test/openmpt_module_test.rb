@@ -92,6 +92,15 @@ class FFI::OpenMPT::ModuleTest < Minitest::Test
   def test_render_params_stereo
     ::FFI::OpenMPT::Module.open(MOD_LAST_SUN) do |mod|
       assert_equal mod.stereo_separation, 100
+
+      mod.stereo_separation = 200
+      assert_equal mod.stereo_separation, 200
+
+      mod.stereo_separation = 201
+      assert_equal mod.stereo_separation, 200
+
+      mod.stereo_separation = -1
+      assert_equal mod.stereo_separation, 0
     end
   end
 end
