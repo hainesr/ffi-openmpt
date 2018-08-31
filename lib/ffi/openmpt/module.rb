@@ -123,6 +123,12 @@ module FFI
         success == 1 ? @int_value.read_int : nil
       end
 
+      def interpolation_filter=(value)
+        openmpt_module_set_render_param(
+          @mod, OPENMPT_MODULE_RENDER_INTERPOLATIONFILTER_LENGTH, value
+        )
+      end
+
       def close
         return if closed?
         @closed = true

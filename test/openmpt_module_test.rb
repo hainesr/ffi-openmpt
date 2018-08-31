@@ -107,6 +107,15 @@ class FFI::OpenMPT::ModuleTest < Minitest::Test
   def test_render_params_filter
     ::FFI::OpenMPT::Module.open(MOD_LAST_SUN) do |mod|
       assert_equal mod.interpolation_filter, 8
+
+      mod.interpolation_filter = 4
+      assert_equal mod.interpolation_filter, 4
+
+      mod.interpolation_filter = 16
+      assert_equal mod.interpolation_filter, 8
+
+      mod.interpolation_filter = -1
+      assert_equal mod.interpolation_filter, 8
     end
   end
 end
