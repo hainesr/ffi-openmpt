@@ -101,6 +101,14 @@ module FFI
         )
       end
 
+      def stereo_separation
+        success = openmpt_module_get_render_param(
+          @mod, OPENMPT_MODULE_RENDER_STEREOSEPARATION_PERCENT, @int_value
+        )
+
+        success == 1 ? @int_value.read_int : nil
+      end
+
       def close
         return if closed?
         @closed = true
