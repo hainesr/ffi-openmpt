@@ -95,6 +95,12 @@ module FFI
         success == 1 ? @int_value.read_int : nil
       end
 
+      def gain=(value)
+        openmpt_module_set_render_param(
+          @mod, OPENMPT_MODULE_RENDER_MASTERGAIN_MILLIBEL, value
+        )
+      end
+
       def close
         return if closed?
         @closed = true
