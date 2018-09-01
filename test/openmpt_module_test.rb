@@ -11,12 +11,21 @@ class FFI::OpenMPT::ModuleTest < Minitest::Test
   def test_create_and_destroy
     mod = ::FFI::OpenMPT::Module.new(MOD_LAST_SUN)
     refute_equal mod, 0
+    assert_equal mod.sample_rate, 48_000
+    mod.close
+  end
+
+  def test_create_with_sample_rate
+    mod = ::FFI::OpenMPT::Module.new(MOD_LAST_SUN, 44_100)
+    refute_equal mod, 0
+    assert_equal mod.sample_rate, 44_100
     mod.close
   end
 
   def test_open
     mod = ::FFI::OpenMPT::Module.open(MOD_LAST_SUN)
     refute mod.closed?
+    assert_equal mod.sample_rate, 48_000
     mod.close
     assert mod.closed?
   end
@@ -31,6 +40,29 @@ class FFI::OpenMPT::ModuleTest < Minitest::Test
   def test_open_block
     ::FFI::OpenMPT::Module.open(MOD_LAST_SUN) do |mod|
       refute_equal mod, 0
+      assert_equal mod.sample_rate, 48_000
+    end
+  end
+
+  def test_open_block_and_change_sample_rate
+    ::FFI::OpenMPT::Module.open(MOD_LAST_SUN) do |mod|
+      refute_equal mod, 0
+      assert_equal mod.sample_rate, 48_000
+
+      mod.sample_rate = 44_100
+      assert_equal mod.sample_rate, 44_100
+
+      mod.sample_rate = 7_999
+      assert_equal mod.sample_rate, 44_100
+
+      mod.sample_rate = 192_001
+      assert_equal mod.sample_rate, 44_100
+
+      mod.sample_rate = 8_000
+      assert_equal mod.sample_rate, 8_000
+
+      mod.sample_rate = 192_000
+      assert_equal mod.sample_rate, 192_000
     end
   end
 

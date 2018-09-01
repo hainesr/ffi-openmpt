@@ -24,9 +24,12 @@ module FFI
         :warnings
       ].freeze
 
-      def initialize(filename)
+      attr_reader :sample_rate
+
+      def initialize(filename, sample_rate = 48_000)
         @closed = false
         @mod = read_mod(filename)
+        @sample_rate = sample_rate
 
         # Allocate a reusable single int buffer.
         # This for use by the 'get_render_params'-type calls.
@@ -45,6 +48,10 @@ module FFI
         end
 
         m
+      end
+
+      def sample_rate=(rate)
+        @sample_rate = rate if (8_000..192_000).cover?(rate)
       end
 
       def duration
