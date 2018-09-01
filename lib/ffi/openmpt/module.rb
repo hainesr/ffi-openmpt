@@ -160,6 +160,18 @@ module FFI
         )
       end
 
+      def read_float_stereo(frames, left, right)
+        openmpt_module_read_float_stereo(
+          @mod, @sample_rate, frames, left, right
+        )
+      end
+
+      def read_interleaved_float_stereo(frames, buffer)
+        openmpt_module_read_interleaved_float_stereo(
+          @mod, @sample_rate, frames, buffer
+        )
+      end
+
       def close
         return if closed?
         @closed = true
