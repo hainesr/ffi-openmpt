@@ -25,10 +25,10 @@ module FFI
 
     def self.supported_extensions
       ptr = API.openmpt_get_supported_extensions
-      str = ptr.read_string
+      exts = ptr.read_string.split(';').map(&:to_sym)
       API.openmpt_free_string(ptr)
 
-      str
+      exts
     end
 
     def self.extension_supported?(ext)

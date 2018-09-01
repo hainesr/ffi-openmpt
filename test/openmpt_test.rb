@@ -32,8 +32,9 @@ class FFI::OpenMPTTest < Minitest::Test
 
   def test_supported_extensions
     exts = ::FFI::OpenMPT.supported_extensions
-    refute_equal exts, ''
-    assert exts.include?(';')
+    assert_kind_of Array, exts
+    refute_empty exts
+    exts.each { |ext| assert_kind_of Symbol, ext }
   end
 
   def test_extension_supported?
