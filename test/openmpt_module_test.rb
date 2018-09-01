@@ -13,6 +13,7 @@ class FFI::OpenMPT::ModuleTest < Minitest::Test
     refute_equal mod, 0
     assert_equal mod.sample_rate, 48_000
     mod.close
+    assert mod.closed?
   end
 
   def test_create_with_sample_rate
@@ -20,6 +21,7 @@ class FFI::OpenMPT::ModuleTest < Minitest::Test
     refute_equal mod, 0
     assert_equal mod.sample_rate, 44_100
     mod.close
+    assert mod.closed?
   end
 
   def test_open
@@ -38,14 +40,15 @@ class FFI::OpenMPT::ModuleTest < Minitest::Test
   end
 
   def test_open_block
-    ::FFI::OpenMPT::Module.open(MOD_LAST_SUN) do |mod|
+    m = ::FFI::OpenMPT::Module.open(MOD_LAST_SUN) do |mod|
       refute_equal mod, 0
       assert_equal mod.sample_rate, 48_000
     end
+    assert m.closed?
   end
 
   def test_open_block_and_change_sample_rate
-    ::FFI::OpenMPT::Module.open(MOD_LAST_SUN) do |mod|
+    m = ::FFI::OpenMPT::Module.open(MOD_LAST_SUN) do |mod|
       refute_equal mod, 0
       assert_equal mod.sample_rate, 48_000
 
@@ -64,6 +67,7 @@ class FFI::OpenMPT::ModuleTest < Minitest::Test
       mod.sample_rate = 192_000
       assert_equal mod.sample_rate, 192_000
     end
+    assert m.closed?
   end
 
   def test_informational_calls
