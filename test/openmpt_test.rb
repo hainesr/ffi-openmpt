@@ -56,6 +56,21 @@ class FFI::OpenMPTTest < Minitest::Test
     )
   end
 
+  def test_error_string
+    [
+      [
+        ::FFI::OpenMPT::API::OPENMPT_ERROR_OUT_OF_MEMORY,
+        'out of memory'
+      ],
+      [
+        ::FFI::OpenMPT::API::OPENMPT_ERROR_ARGUMENT_NULL_POINTER,
+        'unknown error'
+      ]
+    ].each do |error, message|
+      assert_equal ::FFI::OpenMPT.error_string(error), message
+    end
+  end
+
   def test_probe_good_file
     assert ::FFI::OpenMPT.probe_file(MOD_LAST_SUN)
   end
