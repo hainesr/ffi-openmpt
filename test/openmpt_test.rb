@@ -46,6 +46,16 @@ class FFI::OpenMPTTest < Minitest::Test
     end
   end
 
+  def test_transient_error
+    assert ::FFI::OpenMPT.transient_error?(
+      ::FFI::OpenMPT::API::OPENMPT_ERROR_OUT_OF_MEMORY
+    )
+
+    refute ::FFI::OpenMPT.transient_error?(
+      ::FFI::OpenMPT::API::OPENMPT_ERROR_ARGUMENT_NULL_POINTER
+    )
+  end
+
   def test_probe_good_file
     assert ::FFI::OpenMPT.probe_file(MOD_LAST_SUN)
   end

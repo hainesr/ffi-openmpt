@@ -36,6 +36,10 @@ module FFI
       supported == 1
     end
 
+    def self.transient_error?(error)
+      API.openmpt_error_is_transient(error) == 1
+    end
+
     def self.probe_file(filename)
       probe_size = API.openmpt_probe_file_header_get_recommended_size
       data = ::File.binread(filename, probe_size)
