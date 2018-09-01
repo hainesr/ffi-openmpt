@@ -163,4 +163,46 @@ class FFI::OpenMPT::ModuleTest < Minitest::Test
       assert_equal mod.volume_ramping, 10
     end
   end
+
+  def test_read_stereo
+    duration = 10
+    raw = ::File.read(RAW_LAST_SUN_INT16)
+
+    ::FFI::OpenMPT::Module.open(MOD_LAST_SUN) do |mod|
+      frames = mod.sample_rate / duration
+      bytesize = frames * 2 * 2
+      left = ::FFI::MemoryPointer.new(:short, frames)
+      right = ::FFI::MemoryPointer.new(:short, frames)
+
+      100.times do |i|
+        count = mod.read_stereo(frames, left, right)
+        assert_equal count, frames
+
+        rendered = left.read_array_of_int16(count)
+                       .zip(right.read_array_of_int16(count)).flatten
+
+        oracle = raw.byteslice((i * bytesize), bytesize).unpack('s*')
+        assert_equal rendered, oracle
+      end
+    end
+  end
+
+  def test_read_interleaved_stereo
+    duration = 10
+    raw = ::File.read(RAW_LAST_SUN_INT16)
+
+    ::FFI::OpenMPT::Module.open(MOD_LAST_SUN) do |mod|
+      frames = mod.sample_rate / duration
+      bytesize = frames * 2 * 2
+      buffer = ::FFI::MemoryPointer.new(:short, frames * 2)
+
+      100.times do |i|
+        count = mod.read_interleaved_stereo(frames, buffer)
+        assert_equal count, frames
+
+        oracle = raw.byteslice((i * bytesize), bytesize).unpack('s*')
+        assert_equal buffer.read_array_of_int16(count * 2), oracle
+      end
+    end
+  end
 end

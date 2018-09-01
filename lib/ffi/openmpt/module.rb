@@ -150,6 +150,16 @@ module FFI
         )
       end
 
+      def read_stereo(frames, left, right)
+        openmpt_module_read_stereo(@mod, @sample_rate, frames, left, right)
+      end
+
+      def read_interleaved_stereo(frames, buffer)
+        openmpt_module_read_interleaved_stereo(
+          @mod, @sample_rate, frames, buffer
+        )
+      end
+
       def close
         return if closed?
         @closed = true
