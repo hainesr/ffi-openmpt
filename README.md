@@ -22,7 +22,7 @@ You must have `libopenmpt` installed. On Ubuntu this is done with:
 $ sudo apt install libopenmpt0
 ```
 
-You do not need the `libopenmpt` development libraries to be installed.
+You do not need the `libopenmpt` development libraries to be installed. If this library fails to find `libopenmpt` on your platform it might be due to it being named something slightly different. Please [raise an issue][issues] to let me know.
 
 Instructions for installing `libopenmpt` from source are available on the [libopenmpt homepage][lib-home].
 
