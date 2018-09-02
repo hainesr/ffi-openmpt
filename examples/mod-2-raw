@@ -1,0 +1,72 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+# Copyright (c) 2018 Robert Haines.
+#
+# Licensed under the BSD License. See LICENCE for details.
+
+require 'ffi/openmpt'
+
+def get_filename(var)
+  if var.nil?
+    puts 'Please supply a filename to interrogate.'
+    exit(1)
+  end
+
+  var.chomp
+end
+
+param = get_filename(ARGV[0])
+
+if param == '--float'
+  mod_path = get_filename(ARGV[1])
+  float = true
+else
+  mod_path = param
+  float = false
+end
+
+# Does this file exist? Is it readable?
+unless ::File.readable?(mod_path)
+  puts "'#{mod_path}' does not exist, or is not readable."
+  exit(1)
+end
+
+# Can libopenmpt open this file?
+unless ::FFI::OpenMPT.probe_file(mod_path)
+  puts 'libopenmpt can not open this file. Are you sure it is a mod?'
+  exit(1)
+end
+
+frames_per_read = 1_024
+if float
+  raw_type = 'float.raw'
+  buffer = ::FFI::MemoryPointer.new(:float, frames_per_read * 2)
+  method = :read_interleaved_float_stereo
+else
+  raw_type = 'int16.raw'
+  buffer = ::FFI::MemoryPointer.new(:int16, frames_per_read * 2)
+  method = :read_interleaved_stereo
+end
+
+puts
+puts 'Ruby OpenMPT (ffi-openmpt) Mod to Raw PCM Converter.'
+puts '----------------------------------------------------'
+puts
+puts "Filename...: #{::File.basename(mod_path)}"
+puts "Size.......: #{::File.size(mod_path) / 1_024}k"
+
+::FFI::OpenMPT::Module.open(mod_path) do |mod|
+  puts "Type.......: #{mod.type}"
+  puts "Output type: #{raw_type}"
+
+  ::File.open(mod_path + '.' + raw_type, 'wb') do |file|
+    loop do
+      count = mod.send(method, frames_per_read, buffer)
+      break if count == 0
+      file.write(buffer.read_bytes(count * buffer.type_size * 2))
+    end
+  end
+end
+
+puts "Output size: #{::File.size(mod_path + '.' + raw_type) / 1_024}k"
