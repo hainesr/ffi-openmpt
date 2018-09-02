@@ -255,6 +255,47 @@ class FFI::OpenMPT::APITest < Minitest::Test
     end
   end
 
+  def test_module_read_mono
+    srate = 48_000
+    duration = 10
+    frames = srate / duration
+
+    raw = ::File.read(RAW_LAST_SUN_MONO_INT16)
+    buf = ::FFI::MemoryPointer.new(:short, frames)
+
+    module_test(MOD_LAST_SUN) do |mod|
+      100.times do |i|
+        count = openmpt_module_read_mono(mod, srate, frames, buf)
+        assert_equal frames, count
+
+        bytesize = frames * 2
+        oracle = raw.byteslice((i * bytesize), bytesize).unpack('s*')
+        assert_equal buf.read_array_of_int16(count), oracle
+      end
+    end
+  end
+
+  def test_module_read_float_mono
+    srate = 48_000
+    duration = 10
+    frames = srate / duration
+
+    raw = ::File.read(RAW_LAST_SUN_MONO_FLOAT)
+    buf = ::FFI::MemoryPointer.new(:float, frames)
+
+    module_test(MOD_LAST_SUN) do |mod|
+      100.times do |i|
+        count =
+          openmpt_module_read_float_mono(mod, srate, frames, buf)
+        assert_equal frames, count
+
+        bytesize = frames * 4
+        oracle = raw.byteslice((i * bytesize), bytesize).unpack('e*')
+        assert_equal buf.read_array_of_float(count), oracle
+      end
+    end
+  end
+
   def test_module_read_stereo
     srate = 48_000
     duration = 10

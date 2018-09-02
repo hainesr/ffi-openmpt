@@ -140,6 +140,12 @@ module FFI
                       [:pointer, :int, :int], :int
 
       # Read module calls
+      attach_function :openmpt_module_read_mono,
+                      [:pointer, :int, :int, :pointer],
+                      :int
+      attach_function :openmpt_module_read_float_mono,
+                      [:pointer, :int, :int, :pointer],
+                      :int
       attach_function :openmpt_module_read_stereo,
                       [:pointer, :int, :int, :pointer, :pointer],
                       :int
