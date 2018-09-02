@@ -1,5 +1,60 @@
 # Changes log for the Ruby OpenMPT library (ffi-openmpt)
 
+## Version 0.2.0
+
+* Add a Gem version badge to the README.md.
+* Wrap the libopenmpt module probing functions.
+* Enforce comparisons, not predicates, for older rubies.
+* Wrap libopenmpt informational function: get subsongs.
+* Wrap libopenmpt informational function: get channels.
+* Wrap libopenmpt informational function: get orders.
+* Wrap libopenmpt informational function: get patterns.
+* Wrap libopenmpt informational function: get instruments.
+* Wrap libopenmpt informational function: get samples.
+* Wrap libopenmpt informational function: subsong names.
+* Wrap libopenmpt informational function: channel names.
+* Wrap libopenmpt informational function: order names.
+* Wrap libopenmpt informational function: pattern names.
+* Wrap libopenmpt informational function: instrument names.
+* Wrap libopenmpt informational function: sample names.
+* Wrap libopenmpt render parameter functions.
+* Add an example script to read mod information.
+* Document the mod-info example in the README.
+* Use File.binread to load module data in the example.
+* Rename the example script to show that it uses the API.
+* Start ruby-like interface to a mod: Module.
+* Add the metadata method to the ruby interface.
+* Add duration to the ruby interface.
+* Add the simple informational calls to the ruby interface.
+* Replicate the 'mod-info' example with the ruby interface.
+* Add notion of a closed mod to the ruby interface.
+* Catch a closed mod and return in the ruby interface.
+* Allow access to the metadata via ruby interface methods.
+* Use the new metadata method mappings in mod-info.
+* Update README with details of the second example script.
+* Add the get_string library call to the ruby interface.
+* Add the extensions library call to the ruby interface.
+* Add the supported_extension? library call to the ruby interface.
+* Move the module probe function to the OpenMPT namespace.
+* Get render param 'gain' in the ruby interface.
+* Set render param 'gain' in the ruby interface.
+* Get render param 'stereo_separation' in the ruby interface.
+* Set render param 'stereo_separation' in the ruby interface.
+* Get render param 'interpolation_filter' in the ruby interface.
+* Set render param 'interpolation_filter' in the ruby interface.
+* Get render param 'volume_ramping' in the ruby interface.
+* Set render param 'volume_ramping' in the ruby interface.
+* Add transient_error? call to the ruby interface.
+* Add error_string call to the ruby interface.
+* Change supported_extensions to return list of Symbols.
+* Add sample_rate instance variable to Module.
+* Add missing tests for a closed module.
+* Add stereo read (short) calls to the ruby interface.
+* Add stereo read (float) calls to the ruby interface.
+* Add a 'mod-2-raw' ruby interface example script.
+* Add a note to the README about finding libopenmpt.
+* Update the README with information about the ruby interface.
+
 ## Version 0.1.0
 
 * Add Code of Conduct.
