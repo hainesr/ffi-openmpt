@@ -46,13 +46,13 @@ $ gem install ffi-openmpt
 
 ### Usage
 
-The library wraps the C `libopenmpt` API directly: methods have the same name and signature as their C counterparts. A more friendly ruby-like interface is in development, which will hide the FFI details as much as possible.
+The library wraps the C `libopenmpt` API directly: methods have the same name and signature as their C counterparts. A more friendly ruby-like interface is also available, which hides the FFI details as much as possible.
 
 Not all `libopenmpt` methods are wrapped yet, but enough functionality is supplied to load a module, interogate it and render it to a PCM stream.
 
 #### A note on strings returned by `libopenmpt`
 
-`libopenmpt` manages the memory of any strings it returns. This means that you must free up such memory explicitly after you have finished with them. Such strings are returned to ruby as [`FFI::Pointer`][ffi-pointer] objects, so the string value can be copied to a ruby string as follows:
+`libopenmpt` manages the memory of any strings it returns. This means that you must free up such memory explicitly after you have finished with them when using the C API. Such strings are returned to ruby as [`FFI::Pointer`][ffi-pointer] objects, so the string value can be copied to a ruby string as follows:
 
 ```ruby
 include FFI::OpenMPT::API
@@ -62,9 +62,16 @@ openmpt_free_string(ptr)
 puts str
 ```
 
+The ruby interface handles all this for you:
+
+```ruby
+str = FFI::OpenMPT.string(:url)
+puts str
+```
+
 ### Example scripts
 
-Scripts in the `examples` directory show how to use the `ffi-openmpt` API. You will need to make sure that `ffi-openmpt` is on your `RUBYLIB` path, or run the examples with `bundle exec`.
+Scripts in the `examples` directory show how to use both the C and ruby APIs. You will need to make sure that `ffi-openmpt` is on your `RUBYLIB` path, or run the examples with `bundle exec`.
 
 #### `mod-info` and `mod-info-api`
 
@@ -91,7 +98,26 @@ Intruments.: 0
 Samples....: 15
 ```
 
-Both `mod-info` and `mod-info-api` output exactly the same data. `mod-info` uses the ruby interface, and `mod-info-api` uses the mapped `libopenmpt` API directly.
+Both `mod-info` and `mod-info-api` output exactly the same data. `mod-info` uses the ruby interface, and `mod-info-api` uses the mapped `libopenmpt` C API directly.
+
+#### `mod-2-raw`
+
+Render a mod to a raw stereo PCM file. Use the `--float` switch to generate 32 bit float data, or omit for 16bit int data. For example:
+
+```shell
+$ ./mod-2-raw --float lastsun.mod
+
+Ruby OpenMPT (ffi-openmpt) Mod to Raw PCM Converter.
+----------------------------------------------------
+
+Filename...: lastsun.mod
+Size.......: 106k
+Type.......: mod
+Output type: float.raw
+Output size: 88687k
+```
+
+The raw output format is simply a blob of `float` or `short` data. The left and right stereo channels are interleaved. The sample rate used is 48,000Hz.
 
 ### Library versions
 
