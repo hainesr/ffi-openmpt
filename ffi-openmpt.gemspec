@@ -16,7 +16,7 @@ Gem::Specification.new do |spec|
 
   spec.summary       = 'A Ruby library to interface with libopenmpt.'
   spec.description   = 'libopenmpt is a library to render tracker music ' \
-    '(MOD, XM, S3M, IT MPTM and dozens of other legacy formats) to a ' \
+    '(MOD, XM, S3M, IT, MPTM and dozens of other legacy formats) to a ' \
     'PCM audio stream. See https://openmpt.org/ for more information.'
   spec.homepage      = 'https://github.com/hainesr/ffi-openmpt'
   spec.license       = 'BSD'
