@@ -150,6 +150,14 @@ module FFI
         )
       end
 
+      def read_mono(frames, buffer)
+        openmpt_module_read_mono(@mod, @sample_rate, frames, buffer)
+      end
+
+      def read_float_mono(frames, buffer)
+        openmpt_module_read_float_mono(@mod, @sample_rate, frames, buffer)
+      end
+
       def read_stereo(frames, left, right)
         openmpt_module_read_stereo(@mod, @sample_rate, frames, left, right)
       end
