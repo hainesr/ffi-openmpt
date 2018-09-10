@@ -91,7 +91,12 @@ module FFI
 
       def metadata(key)
         return if closed? || !METADATA_KEYS.include?(key)
-        get_openmpt_string(:openmpt_module_get_metadata, key.to_s)
+
+        ptr = openmpt_module_get_metadata(@mod, key.to_s)
+        str = ptr.read_string
+        openmpt_free_string(ptr)
+
+        str
       end
 
       def gain
@@ -210,14 +215,6 @@ module FFI
 
         @closed = (mod.address == 0)
         mod
-      end
-
-      def get_openmpt_string(method, *args)
-        ptr = send(method, @mod, *args)
-        str = ptr.read_string
-        openmpt_free_string(ptr)
-
-        str
       end
     end
   end
