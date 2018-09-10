@@ -15,4 +15,16 @@ class FFI::OpenMPT::StringTest < Minitest::Test
   def test_bad_get
     assert_equal ::FFI::OpenMPT::String.get(:xxxx), ''
   end
+
+  def test_get_as_methods
+    ::FFI::OpenMPT::String::KEYS.each do |key|
+      str = ::FFI::OpenMPT::String.send(key)
+      refute_nil str
+      assert_kind_of String, str
+    end
+
+    assert_raises(NoMethodError) do
+      ::FFI::OpenMPT::String.xxxx
+    end
+  end
 end
