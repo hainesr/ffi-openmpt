@@ -15,14 +15,6 @@ module FFI
       [API.openmpt_get_core_version].pack('L>').unpack('CCCC')
     end
 
-    def self.string(key)
-      ptr = API.openmpt_get_string(key.to_s)
-      str = ptr.read_string
-      API.openmpt_free_string(ptr)
-
-      str
-    end
-
     def self.supported_extensions
       ptr = API.openmpt_get_supported_extensions
       exts = ptr.read_string.split(';').map(&:to_sym)

@@ -22,14 +22,6 @@ class FFI::OpenMPTTest < Minitest::Test
     assert_equal 4, version.length
   end
 
-  def test_string
-    assert_equal ::FFI::OpenMPT.string(:url), 'https://lib.openmpt.org/'
-  end
-
-  def test_bad_string
-    assert_equal ::FFI::OpenMPT.string(:xxxx), ''
-  end
-
   def test_supported_extensions
     exts = ::FFI::OpenMPT.supported_extensions
     assert_kind_of Array, exts
