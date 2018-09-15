@@ -90,6 +90,15 @@ class FFI::OpenMPT::ModuleTest < Minitest::Test
     assert_nil m.samples
   end
 
+  def test_metadata_keys
+    m = ::FFI::OpenMPT::Module.open(MOD_LAST_SUN) do |mod|
+      assert_kind_of Array, mod.metadata_keys
+      assert_kind_of Symbol, mod.metadata_keys[0]
+    end
+
+    assert_nil m.metadata_keys
+  end
+
   def test_metadata
     m = ::FFI::OpenMPT::Module.open(MOD_LAST_SUN) do |mod|
       METADATA_KEYS_LAST_SUN.each do |key, value|

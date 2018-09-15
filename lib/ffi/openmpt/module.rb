@@ -89,6 +89,10 @@ module FFI
         openmpt_module_get_num_samples(@mod)
       end
 
+      def metadata_keys
+        METADATA_KEYS unless closed?
+      end
+
       def metadata(key)
         return if closed? || !METADATA_KEYS.include?(key)
 
