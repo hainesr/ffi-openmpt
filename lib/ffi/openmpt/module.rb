@@ -18,7 +18,7 @@ module FFI
         @sample_rate = sample_rate
 
         # Allocate a reusable single int buffer.
-        # This for use by the 'get_render_params'-type calls.
+        # This is for use by the 'get_render_params'-type calls.
         @int_value = ::FFI::MemoryPointer.new(:int, 1)
       end
 
