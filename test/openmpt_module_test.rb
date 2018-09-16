@@ -96,7 +96,8 @@ class FFI::OpenMPT::ModuleTest < Minitest::Test
       assert_kind_of Symbol, mod.metadata_keys[0]
     end
 
-    assert_nil m.metadata_keys
+    assert_kind_of Array, m.metadata_keys
+    assert_kind_of Symbol, m.metadata_keys[0]
   end
 
   def test_metadata

@@ -10,20 +10,6 @@ module FFI
 
       include API
 
-      METADATA_KEYS = [
-        :type,
-        :type_long,
-        :container,
-        :container_long,
-        :tracker,
-        :artist,
-        :title,
-        :date,
-        :message,
-        :message_raw,
-        :warnings
-      ].freeze
-
       attr_reader :sample_rate
 
       def initialize(filename, sample_rate = 48_000)
@@ -90,11 +76,15 @@ module FFI
       end
 
       def metadata_keys
-        METADATA_KEYS unless closed?
+        ptr = openmpt_module_get_metadata_keys(@mod)
+        str = ptr.read_string
+        openmpt_free_string(ptr)
+
+        str.split(';').map(&:to_sym)
       end
 
       def metadata(key)
-        return if closed? || !METADATA_KEYS.include?(key)
+        return if closed? || !metadata_keys.include?(key)
 
         ptr = openmpt_module_get_metadata(@mod, key.to_s)
         str = ptr.read_string
@@ -204,7 +194,7 @@ module FFI
       end
 
       def respond_to_missing?(name, *all)
-        METADATA_KEYS.include?(name) || super
+        metadata_keys.include?(name) || super
       end
 
       private
