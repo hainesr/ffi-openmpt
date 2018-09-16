@@ -24,8 +24,7 @@ module FFI
     end
 
     def self.extension_supported?(ext)
-      supported = API.openmpt_is_extension_supported(ext.to_s)
-      supported == 1
+      API.openmpt_is_extension_supported(ext.to_s) == 1
     end
 
     def self.transient_error?(error)
