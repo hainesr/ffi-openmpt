@@ -11,8 +11,24 @@ $LOAD_PATH.unshift File.expand_path('../lib', __dir__)
 require 'ffi/openmpt'
 
 require 'minitest/autorun'
+require 'tempfile'
 
 FIXTURES_DIR = ::File.expand_path('fixtures', __dir__)
+
+# Utility function to ensure that we can capture stderr from the
+# external C openmpt library.
+def read_stderr
+  orig_stderr = STDERR.dup
+
+  Tempfile.open('ffi_openmpt_stderr') do |err|
+    STDERR.reopen(err)
+    yield
+    err.rewind
+    err.read
+  end
+ensure
+  STDERR.reopen(orig_stderr)
+end
 
 # Test mods
 MOD_LAST_SUN = ::File.join(FIXTURES_DIR, 'lastsun.mod')
