@@ -7,10 +7,13 @@
 
 set -ex
 
-wget https://lib.openmpt.org/files/libopenmpt/src/libopenmpt-0.3.11+release.autotools.tar.gz
-tar xzf libopenmpt-0.3.11+release.autotools.tar.gz
+DIR=libopenmpt-0.3.11+release.autotools
+TAR=${DIR}.tar.gz
 
-cd libopenmpt-0.3.11+release.autotools && \
+wget https://lib.openmpt.org/files/libopenmpt/src/${TAR}
+tar xzf ${TAR}
+
+cd ${DIR} && \
 ./configure --prefix=$TRAVIS_BUILD_DIR/usr \
             --disable-largefile \
             --disable-openmpt123 \
