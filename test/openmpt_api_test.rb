@@ -54,8 +54,15 @@ class FFI::OpenMPT::APITest < Minitest::Test
   end
 
   def test_logging_funcs
-    assert_nil openmpt_log_func_default('hello', nil)
-    assert_nil openmpt_log_func_silent('hello', nil)
+    stderr = read_stderr do
+      assert_nil openmpt_log_func_default('hello', nil)
+    end
+    assert_equal stderr, "openmpt: hello\n"
+
+    stderr = read_stderr do
+      assert_nil openmpt_log_func_silent('hello', nil)
+    end
+    assert_equal stderr, ''
   end
 
   def test_error_information_funcs
