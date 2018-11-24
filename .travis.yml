@@ -16,8 +16,20 @@ rvm:
   - rbx-3
   - ruby-head
 
+env:
+  - TEST_LIBOPENMPT_VERSION=0.3.11
+  - TEST_LIBOPENMPT_VERSION=0.3.12
+
 matrix:
   fast_finish: true
   allow_failures:
     - rvm: rbx-3
     - rvm: ruby-head
+    - env: TEST_LIBOPENMPT_VERSION=0.3.12
+  exclude:
+    - rvm: rbx-3
+      env: TEST_LIBOPENMPT_VERSION=0.3.12
+    - rvm: 2.2.10
+      env: TEST_LIBOPENMPT_VERSION=0.3.12
+    - rvm: 2.3.8
+      env: TEST_LIBOPENMPT_VERSION=0.3.12
