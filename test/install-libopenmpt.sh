@@ -7,7 +7,8 @@
 
 set -ex
 
-DIR=libopenmpt-0.3.13+release.autotools
+VER=${TEST_LIBOPENMPT_VERSION:-0.3.11}
+DIR=libopenmpt-${VER}+release.autotools
 TAR=${DIR}.tar.gz
 
 wget https://lib.openmpt.org/files/libopenmpt/src/${TAR}
