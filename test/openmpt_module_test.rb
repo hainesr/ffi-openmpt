@@ -174,6 +174,17 @@ class FFI::OpenMPT::ModuleTest < Minitest::Test
     end
   end
 
+  def test_repeat_count
+    ::FFI::OpenMPT::Module.open(MOD_LAST_SUN) do |mod|
+      assert_equal mod.repeat_count, 0
+
+      [-1, 2, 0].each do |count|
+        mod.repeat_count = count
+        assert_equal mod.repeat_count, count
+      end
+    end
+  end
+
   def test_read_mono
     duration = 10
     raw = ::File.read(RAW_LAST_SUN_MONO_INT16)

@@ -75,6 +75,14 @@ module FFI
         openmpt_module_get_num_samples(@mod)
       end
 
+      def repeat_count
+        openmpt_module_get_repeat_count(@mod)
+      end
+
+      def repeat_count=(count)
+        openmpt_module_set_repeat_count(@mod, count)
+      end
+
       def metadata_keys
         ptr = openmpt_module_get_metadata_keys(@mod)
         str = ptr.read_string
