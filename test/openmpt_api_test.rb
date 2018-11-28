@@ -237,6 +237,17 @@ class FFI::OpenMPT::APITest < Minitest::Test
     assert_equal load, OPENMPT_PROBE_FILE_HEADER_RESULT_SUCCESS
   end
 
+  def test_module_get_and_set_repeat_count
+    module_test(MOD_LAST_SUN) do |mod|
+      assert_equal openmpt_module_get_repeat_count(mod), 0
+
+      [-1, 2, 0].each do |count|
+        openmpt_module_set_repeat_count(mod, count)
+        assert_equal openmpt_module_get_repeat_count(mod), count
+      end
+    end
+  end
+
   def test_module_get_and_set_render_params
     module_test(MOD_LAST_SUN) do |mod|
       value = ::FFI::MemoryPointer.new(:int, 1)

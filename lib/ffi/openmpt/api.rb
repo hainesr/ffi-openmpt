@@ -139,6 +139,10 @@ module FFI
       attach_function :openmpt_module_set_render_param,
                       [:pointer, :int, :int], :int
 
+      # Repeat module calls
+      attach_function :openmpt_module_get_repeat_count, [:pointer], :int
+      attach_function :openmpt_module_set_repeat_count, [:pointer, :int], :void
+
       # Read module calls
       attach_function :openmpt_module_read_mono,
                       [:pointer, :int, :int, :pointer],
