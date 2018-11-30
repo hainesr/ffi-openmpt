@@ -248,6 +248,24 @@ class FFI::OpenMPT::APITest < Minitest::Test
     end
   end
 
+  def test_module_positional_calls
+    module_test(MOD_LAST_SUN) do |mod|
+      assert_equal openmpt_module_get_position_seconds(mod), 0.0
+
+      assert_in_delta openmpt_module_set_position_seconds(mod, 10.0), 10.0
+      assert_in_delta openmpt_module_get_position_seconds(mod), 10.0
+
+      assert_equal openmpt_module_set_position_seconds(mod, -1.0), 0.0
+      assert_equal openmpt_module_get_position_seconds(mod), 0.0
+
+      assert_in_delta openmpt_module_set_position_seconds(mod, 240.0), 236.4
+      assert_in_delta openmpt_module_get_position_seconds(mod), 236.4
+
+      assert_equal openmpt_module_set_position_order_row(mod, 0, 0), 0.0
+      assert_equal openmpt_module_get_position_seconds(mod), 0.0
+    end
+  end
+
   def test_module_get_and_set_render_params
     module_test(MOD_LAST_SUN) do |mod|
       value = ::FFI::MemoryPointer.new(:int, 1)

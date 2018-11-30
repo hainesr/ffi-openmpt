@@ -143,6 +143,13 @@ module FFI
       attach_function :openmpt_module_get_repeat_count, [:pointer], :int
       attach_function :openmpt_module_set_repeat_count, [:pointer, :int], :void
 
+      # Positional module calls
+      attach_function :openmpt_module_get_position_seconds, [:pointer], :double
+      attach_function :openmpt_module_set_position_seconds,
+                      [:pointer, :double], :double
+      attach_function :openmpt_module_set_position_order_row,
+                      [:pointer, :int, :int], :double
+
       # Read module calls
       attach_function :openmpt_module_read_mono,
                       [:pointer, :int, :int, :pointer],
