@@ -83,6 +83,19 @@ module FFI
         openmpt_module_set_repeat_count(@mod, count)
       end
 
+      def position
+        return if closed?
+        openmpt_module_get_position_seconds(@mod)
+      end
+
+      def position=(param)
+        if param.is_a?(Array)
+          openmpt_module_set_position_order_row(@mod, param[0], param[1])
+        else
+          openmpt_module_set_position_seconds(@mod, param)
+        end
+      end
+
       def metadata_keys
         ptr = openmpt_module_get_metadata_keys(@mod)
         str = ptr.read_string

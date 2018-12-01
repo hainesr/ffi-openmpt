@@ -185,6 +185,26 @@ class FFI::OpenMPT::ModuleTest < Minitest::Test
     end
   end
 
+  def test_position
+    m = ::FFI::OpenMPT::Module.open(MOD_LAST_SUN) do |mod|
+      assert_equal mod.position, 0.0
+
+      mod.position = 10.0
+      assert_in_delta mod.position, 10.0
+
+      mod.position = -1.0
+      assert_equal mod.position, 0.0
+
+      mod.position = 240.0
+      assert_in_delta mod.position, 236.4
+
+      mod.position = [0, 0]
+      assert_equal mod.position, 0.0
+    end
+
+    assert_nil m.position
+  end
+
   def test_read_mono
     duration = 10
     raw = ::File.read(RAW_LAST_SUN_MONO_INT16)
