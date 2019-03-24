@@ -1,5 +1,24 @@
 # Changes log for the Ruby OpenMPT library (ffi-openmpt)
 
+## Version 0.3.0
+
+* Wrap the libopenmpt module read mono functions.
+* Add mono read (short/float) calls to the ruby interface.
+* Move the string get method to its own namespace.
+* Allow getting informational strings directly.
+* Wrap Module#metadata_keys.
+* Directly query module metadata keys.
+* Update test version of libopenmpt to 0.3.13.
+* Parameterize the test libopenmpt version.
+* Update Travis config to use latest rubies.
+* Turn on `fast_finish` in the Travis config.
+* Switch to use latest dist (Xenial) in Travis.
+* Test multiple versions of the libopenmpt library.
+* Wrap libopenmpt module repeat functions.
+* Add repeat_count to the ruby interface.
+* Wrap libopenmpt module positional calls.
+* Add positional calls to the ruby interface.
+
 ## Version 0.2.0
 
 * Add a Gem version badge to the README.md.
