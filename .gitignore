@@ -7,4 +7,6 @@
 /spec/reports/
 /tmp/
 
+/.vscode/
+
 Gemfile.lock
