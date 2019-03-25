@@ -4,7 +4,7 @@ language: ruby
 cache: bundler
 
 before_install:
-  - gem install bundler -v 1.16.1
+  - gem install bundler -v 2.0.1
   - ./test/install-libopenmpt.sh
   - export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$TRAVIS_BUILD_DIR/usr/lib
 
