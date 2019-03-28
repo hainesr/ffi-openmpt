@@ -55,10 +55,9 @@ Not all `libopenmpt` methods are wrapped yet, but enough functionality is suppli
 `libopenmpt` manages the memory of any strings it returns. This means that you must free up such memory explicitly after you have finished with them when using the C API. Such strings are returned to ruby as [`FFI::Pointer`][ffi-pointer] objects, so the string value can be copied to a ruby string as follows:
 
 ```ruby
-include FFI::OpenMPT::API
-ptr = openmpt_get_string('url')
+ptr = FFI::OpenMPT::API.openmpt_get_string('url')
 str = ptr.read_string
-openmpt_free_string(ptr)
+FFI::OpenMPT::API.openmpt_free_string(ptr)
 puts str
 ```
 
