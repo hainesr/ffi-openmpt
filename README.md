@@ -65,7 +65,7 @@ puts str
 The ruby interface handles all this for you:
 
 ```ruby
-str = FFI::OpenMPT.string(:url)
+str = FFI::OpenMPT::String.get(:url)
 puts str
 ```
 
