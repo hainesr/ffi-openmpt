@@ -75,6 +75,14 @@ module FFI
         openmpt_module_get_num_samples(@mod)
       end
 
+      def sample_name(index)
+        ptr = openmpt_module_get_sample_name(@mod, index)
+        name = ptr.read_string
+        openmpt_free_string(ptr)
+
+        name
+      end
+
       def repeat_count
         openmpt_module_get_repeat_count(@mod)
       end
