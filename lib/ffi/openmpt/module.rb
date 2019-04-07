@@ -45,32 +45,32 @@ module FFI
         openmpt_module_get_duration_seconds(@mod)
       end
 
-      def subsongs
+      def num_subsongs
         return if closed?
         openmpt_module_get_num_subsongs(@mod)
       end
 
-      def channels
+      def num_channels
         return if closed?
         openmpt_module_get_num_channels(@mod)
       end
 
-      def orders
+      def num_orders
         return if closed?
         openmpt_module_get_num_orders(@mod)
       end
 
-      def patterns
+      def num_patterns
         return if closed?
         openmpt_module_get_num_patterns(@mod)
       end
 
-      def instruments
+      def num_instruments
         return if closed?
         openmpt_module_get_num_instruments(@mod)
       end
 
-      def samples
+      def num_samples
         return if closed?
         openmpt_module_get_num_samples(@mod)
       end

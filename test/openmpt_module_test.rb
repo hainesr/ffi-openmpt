@@ -73,26 +73,26 @@ class FFI::OpenMPT::ModuleTest < Minitest::Test
   def test_informational_calls
     m = ::FFI::OpenMPT::Module.open(MOD_LAST_SUN) do |mod|
       assert_in_epsilon mod.duration, 236.4, 0.001
-      assert_equal mod.subsongs, 1
-      assert_equal mod.channels, 4
-      assert_equal mod.orders, 35
-      assert_equal mod.patterns, 20
-      assert_equal mod.instruments, 0
-      assert_equal mod.samples, 15
+      assert_equal mod.num_subsongs, 1
+      assert_equal mod.num_channels, 4
+      assert_equal mod.num_orders, 35
+      assert_equal mod.num_patterns, 20
+      assert_equal mod.num_instruments, 0
+      assert_equal mod.num_samples, 15
     end
 
     assert_nil m.duration
-    assert_nil m.subsongs
-    assert_nil m.channels
-    assert_nil m.orders
-    assert_nil m.patterns
-    assert_nil m.instruments
-    assert_nil m.samples
+    assert_nil m.num_subsongs
+    assert_nil m.num_channels
+    assert_nil m.num_orders
+    assert_nil m.num_patterns
+    assert_nil m.num_instruments
+    assert_nil m.num_samples
   end
 
   def test_sample_name
     ::FFI::OpenMPT::Module.open(MOD_LAST_SUN) do |mod|
-      mod.samples.times do |i|
+      mod.num_samples.times do |i|
         assert_equal mod.sample_name(i), SAMPLE_NAMES_LAST_SUN[i]
       end
     end
