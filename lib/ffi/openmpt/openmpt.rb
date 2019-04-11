@@ -17,10 +17,9 @@ module FFI
 
     def self.supported_extensions
       ptr = API.openmpt_get_supported_extensions
-      exts = ptr.read_string.split(';').map(&:to_sym)
+      ptr.read_string.split(';').map(&:to_sym)
+    ensure
       API.openmpt_free_string(ptr)
-
-      exts
     end
 
     def self.extension_supported?(ext)
@@ -33,10 +32,9 @@ module FFI
 
     def self.error_string(error)
       ptr = API.openmpt_error_string(error)
-      str = ptr.read_string
+      ptr.read_string
+    ensure
       API.openmpt_free_string(ptr)
-
-      str
     end
 
     def self.probe_file(filename)
