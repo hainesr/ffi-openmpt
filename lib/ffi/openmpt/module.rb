@@ -77,10 +77,9 @@ module FFI
 
       def sample_name(index)
         ptr = openmpt_module_get_sample_name(@mod, index)
-        name = ptr.read_string
+        ptr.read_string
+      ensure
         openmpt_free_string(ptr)
-
-        name
       end
 
       def repeat_count
@@ -106,20 +105,18 @@ module FFI
 
       def metadata_keys
         ptr = openmpt_module_get_metadata_keys(@mod)
-        str = ptr.read_string
+        ptr.read_string.split(';').map(&:to_sym)
+      ensure
         openmpt_free_string(ptr)
-
-        str.split(';').map(&:to_sym)
       end
 
       def metadata(key)
         return if closed? || !metadata_keys.include?(key)
 
         ptr = openmpt_module_get_metadata(@mod, key.to_s)
-        str = ptr.read_string
+        ptr.read_string
+      ensure
         openmpt_free_string(ptr)
-
-        str
       end
 
       def gain
