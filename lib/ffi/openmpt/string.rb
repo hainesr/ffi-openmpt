@@ -34,10 +34,9 @@ module FFI
 
       def self.get(key)
         ptr = API.openmpt_get_string(key.to_s)
-        str = ptr.read_string
+        ptr.read_string
+      ensure
         API.openmpt_free_string(ptr)
-
-        str
       end
 
       def self.method_missing(name, *args)
