@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-# Copyright (c) 2018 Robert Haines.
+# Copyright (c) 2018, 2019 Robert Haines.
 #
 # Licensed under the BSD License. See LICENCE for details.
 
@@ -9,7 +9,7 @@ require 'ffi/openmpt'
 
 def get_filename(var)
   if var.nil?
-    puts 'Please supply a filename to interrogate.'
+    warn 'Please supply a filename to interrogate.'
     exit(1)
   end
 
@@ -28,13 +28,13 @@ end
 
 # Does this file exist? Is it readable?
 unless ::File.readable?(mod_path)
-  puts "'#{mod_path}' does not exist, or is not readable."
+  warn "'#{mod_path}' does not exist, or is not readable."
   exit(1)
 end
 
 # Can libopenmpt open this file?
 unless ::FFI::OpenMPT.probe_file(mod_path)
-  puts 'libopenmpt can not open this file. Are you sure it is a mod?'
+  warn 'libopenmpt can not open this file. Are you sure it is a mod?'
   exit(1)
 end
 
