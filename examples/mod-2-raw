@@ -9,7 +9,7 @@ require 'ffi/openmpt'
 
 def get_filename(var)
   if var.nil?
-    warn 'Please supply a filename to interrogate.'
+    warn 'Please supply a filename to convert.'
     exit(1)
   end
 
