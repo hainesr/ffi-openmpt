@@ -1,4 +1,4 @@
-inherit_from: .rubocop_ffi-openmpt.yml
+inherit_from: .rubocop_todo.yml
 
 # Turn this off for now. CI checks different versions of ruby anyway.
 Gemspec/RequiredRubyVersion:
@@ -48,7 +48,7 @@ Metrics/MethodLength:
 
 # Set a more reasonable class length and ignore failures in the tests.
 Metrics/ClassLength:
-  Max: 200
+  Max: 250
   Exclude:
     - 'test/**/*.rb'
 
