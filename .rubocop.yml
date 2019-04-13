@@ -1,3 +1,5 @@
+require: rubocop-performance
+
 inherit_from: .rubocop_todo.yml
 
 # Turn this off for now. CI checks different versions of ruby anyway.
