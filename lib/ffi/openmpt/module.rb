@@ -71,6 +71,10 @@ module FFI
         openmpt_module_get_num_instruments(@mod)
       end
 
+      def instrument_names
+        get_names(num_instruments, :openmpt_module_get_instrument_name)
+      end
+
       def num_samples
         return if closed?
         openmpt_module_get_num_samples(@mod)
