@@ -257,10 +257,12 @@ module FFI
 
       def get_names(num, get)
         (0...num).reduce([]) do |acc, i|
-          ptr = send(get, @mod, i)
-          acc << ptr.read_string
-        ensure
-          openmpt_free_string(ptr)
+          begin
+            ptr = send(get, @mod, i)
+            acc << ptr.read_string
+          ensure
+            openmpt_free_string(ptr)
+          end
         end
       end
     end
