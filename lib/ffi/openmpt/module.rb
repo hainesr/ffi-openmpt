@@ -51,6 +51,10 @@ module FFI
         openmpt_module_get_num_subsongs(@mod)
       end
 
+      def subsong_names
+        get_names(num_subsongs, :openmpt_module_get_subsong_name)
+      end
+
       def num_channels
         return if closed?
         openmpt_module_get_num_channels(@mod)
