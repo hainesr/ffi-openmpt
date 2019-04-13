@@ -61,6 +61,10 @@ module FFI
         openmpt_module_get_num_orders(@mod)
       end
 
+      def order_names
+        get_names(num_orders, :openmpt_module_get_order_name)
+      end
+
       def num_patterns
         return if closed?
         openmpt_module_get_num_patterns(@mod)
