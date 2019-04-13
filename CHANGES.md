@@ -1,5 +1,29 @@
 # Changes log for the Ruby OpenMPT library (ffi-openmpt)
 
+## Version 0.4.0
+
+* Update the minimum ruby version to 2.3.
+* Update to use bundler 2.0.1.
+* Update the string example in README.md.
+* Simplify the API string code example.
+* Add sample_name to the ruby interface.
+* Align info method names with the C++ API.
+* Ensure memory is always freed in String::get.
+* Ensure memory is always freed in Module methods.
+* Ensure memory is always freed in OpenMPT methods.
+* Update the memory handling code example in the README.
+* Use `warn` not `puts` for error messages in mod-2-raw.
+* Fix wording of an error message in mod-2-raw.
+* Add Module#sample_names to the ruby interface.
+* Add a note in Module::new about MemoryPointer.
+* Remove Module#sample_name. It's not in the C++ API.
+* Generalize getting name lists from a mod.
+* Add Module#instrument_names to the ruby interface.
+* Add Module#pattern_names to the ruby interface.
+* Add Module#order_names to the ruby interface.
+* Add Module#channel_names to the ruby interface.
+* Add Module#subsong_names to the ruby interface.
+
 ## Version 0.3.0
 
 * Wrap the libopenmpt module read mono functions.
