@@ -1,5 +1,9 @@
 # Changes log for the Ruby OpenMPT library (ffi-openmpt)
 
+## Version 0.4.1
+
+* Use an explicit begin block in Module#get_names.
+
 ## Version 0.4.0
 
 * Update the minimum ruby version to 2.3.
