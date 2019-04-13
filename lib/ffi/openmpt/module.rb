@@ -19,6 +19,7 @@ module FFI
 
         # Allocate a reusable single int buffer.
         # This is for use by the 'get_render_params'-type calls.
+        # FFI::MemoryPointer is garbage collected automatically.
         @int_value = ::FFI::MemoryPointer.new(:int, 1)
       end
 
