@@ -98,6 +98,14 @@ class FFI::OpenMPT::ModuleTest < Minitest::Test
     end
   end
 
+  def test_sample_names
+    ::FFI::OpenMPT::Module.open(MOD_LAST_SUN) do |mod|
+      mod.sample_names.each_with_index do |name, i|
+        assert_equal name, SAMPLE_NAMES_LAST_SUN[i]
+      end
+    end
+  end
+
   def test_metadata_keys
     m = ::FFI::OpenMPT::Module.open(MOD_LAST_SUN) do |mod|
       assert_kind_of Array, mod.metadata_keys
