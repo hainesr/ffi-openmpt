@@ -90,6 +90,14 @@ class FFI::OpenMPT::ModuleTest < Minitest::Test
     assert_nil m.num_samples
   end
 
+  def test_channel_names
+    ::FFI::OpenMPT::Module.open(MOD_LAST_SUN) do |mod|
+      mod.channel_names.each do |name|
+        assert_equal name, ''
+      end
+    end
+  end
+
   def test_order_names
     ::FFI::OpenMPT::Module.open(MOD_LAST_SUN) do |mod|
       mod.order_names.each do |name|

@@ -56,6 +56,10 @@ module FFI
         openmpt_module_get_num_channels(@mod)
       end
 
+      def channel_names
+        get_names(num_channels, :openmpt_module_get_channel_name)
+      end
+
       def num_orders
         return if closed?
         openmpt_module_get_num_orders(@mod)
