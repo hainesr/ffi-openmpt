@@ -76,13 +76,6 @@ module FFI
         openmpt_module_get_num_samples(@mod)
       end
 
-      def sample_name(index)
-        ptr = openmpt_module_get_sample_name(@mod, index)
-        ptr.read_string
-      ensure
-        openmpt_free_string(ptr)
-      end
-
       def sample_names
         # Old school mods really do have 15 or 31 samples, not 16 or 32.
         (0...num_samples).reduce([]) do |acc, i|
