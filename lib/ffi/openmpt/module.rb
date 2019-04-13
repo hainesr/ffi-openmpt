@@ -77,13 +77,7 @@ module FFI
       end
 
       def sample_names
-        # Old school mods really do have 15 or 31 samples, not 16 or 32.
-        (0...num_samples).reduce([]) do |acc, i|
-          ptr = openmpt_module_get_sample_name(@mod, i)
-          acc << ptr.read_string
-        ensure
-          openmpt_free_string(ptr)
-        end
+        get_names(num_samples, :openmpt_module_get_sample_name)
       end
 
       def repeat_count
@@ -239,6 +233,15 @@ module FFI
 
         @closed = (mod.address == 0)
         mod
+      end
+
+      def get_names(num, get)
+        (0...num).reduce([]) do |acc, i|
+          ptr = send(get, @mod, i)
+          acc << ptr.read_string
+        ensure
+          openmpt_free_string(ptr)
+        end
       end
     end
   end
