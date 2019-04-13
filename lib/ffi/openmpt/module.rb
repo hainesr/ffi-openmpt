@@ -66,6 +66,10 @@ module FFI
         openmpt_module_get_num_patterns(@mod)
       end
 
+      def pattern_names
+        get_names(num_patterns, :openmpt_module_get_pattern_name)
+      end
+
       def num_instruments
         return if closed?
         openmpt_module_get_num_instruments(@mod)
