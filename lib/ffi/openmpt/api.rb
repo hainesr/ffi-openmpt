@@ -151,6 +151,8 @@ module FFI
                       [:pointer, :int, :int], :double
 
       # Real-time playing information calls
+      attach_function :openmpt_module_get_current_speed, [:pointer], :int
+      attach_function :openmpt_module_get_current_tempo, [:pointer], :int
       attach_function :openmpt_module_get_current_order, [:pointer], :int
       attach_function :openmpt_module_get_current_pattern, [:pointer], :int
       attach_function :openmpt_module_get_current_row, [:pointer], :int

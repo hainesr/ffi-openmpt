@@ -264,6 +264,8 @@ class FFI::OpenMPT::APITest < Minitest::Test
       assert_equal openmpt_module_set_position_order_row(mod, 0, 0), 0.0
       assert_equal openmpt_module_get_position_seconds(mod), 0.0
 
+      assert_equal openmpt_module_get_current_speed(mod), 6
+      assert_equal openmpt_module_get_current_tempo(mod), 125
       assert_equal openmpt_module_get_current_order(mod), 0
       assert_equal openmpt_module_get_current_pattern(mod), 0
       assert_equal openmpt_module_get_current_row(mod), 0
