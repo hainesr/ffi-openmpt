@@ -248,7 +248,7 @@ class FFI::OpenMPT::APITest < Minitest::Test
     end
   end
 
-  def test_module_positional_calls
+  def test_module_positional_and_informational_calls
     module_test(MOD_LAST_SUN) do |mod|
       assert_equal openmpt_module_get_position_seconds(mod), 0.0
 
@@ -263,6 +263,10 @@ class FFI::OpenMPT::APITest < Minitest::Test
 
       assert_equal openmpt_module_set_position_order_row(mod, 0, 0), 0.0
       assert_equal openmpt_module_get_position_seconds(mod), 0.0
+
+      assert_equal openmpt_module_get_current_order(mod), 0
+      assert_equal openmpt_module_get_current_pattern(mod), 0
+      assert_equal openmpt_module_get_current_row(mod), 0
     end
   end
 
