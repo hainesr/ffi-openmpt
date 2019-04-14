@@ -121,6 +121,18 @@ module FFI
         end
       end
 
+      def current_order
+        openmpt_module_get_current_order(@mod)
+      end
+
+      def current_pattern
+        openmpt_module_get_current_pattern(@mod)
+      end
+
+      def current_row
+        openmpt_module_get_current_row(@mod)
+      end
+
       def metadata_keys
         ptr = openmpt_module_get_metadata_keys(@mod)
         ptr.read_string.split(';').map(&:to_sym)
