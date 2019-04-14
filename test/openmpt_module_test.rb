@@ -234,12 +234,16 @@ class FFI::OpenMPT::ModuleTest < Minitest::Test
   def test_positional_and_informational_methods
     m = ::FFI::OpenMPT::Module.open(MOD_LAST_SUN) do |mod|
       assert_equal mod.position, 0.0
+      assert_equal mod.current_speed, 6
+      assert_equal mod.current_tempo, 125
       assert_equal mod.current_order, 0
       assert_equal mod.current_pattern, 0
       assert_equal mod.current_row, 0
 
       mod.position = 10.0
       assert_in_delta mod.position, 10.0
+      assert_equal mod.current_speed, 5
+      assert_equal mod.current_tempo, 125
       assert_equal mod.current_order, 1
       assert_equal mod.current_pattern, 1
       assert_equal mod.current_row, 36

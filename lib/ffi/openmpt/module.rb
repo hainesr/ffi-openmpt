@@ -121,6 +121,14 @@ module FFI
         end
       end
 
+      def current_speed
+        openmpt_module_get_current_speed(@mod)
+      end
+
+      def current_tempo
+        openmpt_module_get_current_tempo(@mod)
+      end
+
       def current_order
         openmpt_module_get_current_order(@mod)
       end
