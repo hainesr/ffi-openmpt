@@ -145,6 +145,17 @@ module FFI
         openmpt_module_get_current_playing_channels(@mod)
       end
 
+      def current_channel_vu_mono(channel)
+        openmpt_module_get_current_channel_vu_mono(@mod, channel)
+      end
+
+      def current_channel_vu_stereo(channel)
+        [
+          openmpt_module_get_current_channel_vu_left(@mod, channel),
+          openmpt_module_get_current_channel_vu_right(@mod, channel)
+        ]
+      end
+
       def metadata_keys
         ptr = openmpt_module_get_metadata_keys(@mod)
         ptr.read_string.split(';').map(&:to_sym)

@@ -278,12 +278,56 @@ class FFI::OpenMPT::ModuleTest < Minitest::Test
       buffer = ::FFI::MemoryPointer.new(:short, frames * 2)
 
       mod.read_interleaved_stereo(frames, buffer)
+
+      # At the start only one channel is playing any sound.
       assert_equal mod.current_playing_channels, 1
 
-      # Move into the song a bit.
+      assert mod.current_channel_vu_mono(0) > 0.0
+      assert_equal mod.current_channel_vu_mono(1), 0.0
+      assert_equal mod.current_channel_vu_mono(2), 0.0
+      assert_equal mod.current_channel_vu_mono(3), 0.0
+
+      l, r = mod.current_channel_vu_stereo(0)
+      assert_equal l, 0.0
+      assert r > 0.0
+
+      l, r = mod.current_channel_vu_stereo(1)
+      assert_equal l, 0.0
+      assert_equal r, 0.0
+
+      l, r = mod.current_channel_vu_stereo(2)
+      assert_equal l, 0.0
+      assert_equal r, 0.0
+
+      l, r = mod.current_channel_vu_stereo(3)
+      assert_equal l, 0.0
+      assert_equal r, 0.0
+
+      # Move into the song a bit. Now three channels are playing sound.
       mod.position = [4, 0]
       mod.read_interleaved_stereo(frames, buffer)
       assert_equal mod.current_playing_channels, 3
+
+      assert mod.current_channel_vu_mono(0) > 0.0
+      assert_equal mod.current_channel_vu_mono(1), 0.0
+      assert mod.current_channel_vu_mono(2) > 0.0
+      assert mod.current_channel_vu_mono(3) > 0.0
+
+      l, r = mod.current_channel_vu_stereo(0)
+      assert l > 0.0
+      assert r > 0.0
+
+      l, r = mod.current_channel_vu_stereo(1)
+      assert_equal l, 0.0
+      assert_equal r, 0.0
+
+      l, r = mod.current_channel_vu_stereo(2)
+      assert l > 0.0
+      assert r > 0.0
+
+      l, r = mod.current_channel_vu_stereo(3)
+      assert l > 0.0
+      assert r > 0.0
     end
   end
 
