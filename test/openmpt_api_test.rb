@@ -272,6 +272,24 @@ class FFI::OpenMPT::APITest < Minitest::Test
     end
   end
 
+  # These calls need one of the read functions to have
+  # been called to be able to return sensible data.
+  def test_module_real_time_informational_calls
+    srate = 48_000
+    frames = srate / 10
+    buf = ::FFI::MemoryPointer.new(:short, frames * 2)
+
+    module_test(MOD_LAST_SUN) do |mod|
+      openmpt_module_read_interleaved_stereo(mod, srate, frames, buf)
+      assert_equal openmpt_module_get_current_playing_channels(mod), 1
+
+      # Move into the song a bit.
+      openmpt_module_set_position_order_row(mod, 4, 0)
+      openmpt_module_read_interleaved_stereo(mod, srate, frames, buf)
+      assert_equal openmpt_module_get_current_playing_channels(mod), 3
+    end
+  end
+
   def test_module_get_and_set_render_params
     module_test(MOD_LAST_SUN) do |mod|
       value = ::FFI::MemoryPointer.new(:int, 1)

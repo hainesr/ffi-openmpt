@@ -156,6 +156,8 @@ module FFI
       attach_function :openmpt_module_get_current_order, [:pointer], :int
       attach_function :openmpt_module_get_current_pattern, [:pointer], :int
       attach_function :openmpt_module_get_current_row, [:pointer], :int
+      attach_function :openmpt_module_get_current_playing_channels,
+                      [:pointer], :int
 
       # Read module calls
       attach_function :openmpt_module_read_mono,
