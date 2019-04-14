@@ -159,6 +159,14 @@ module FFI
       attach_function :openmpt_module_get_current_playing_channels,
                       [:pointer], :int
 
+      # VU meter calls
+      attach_function :openmpt_module_get_current_channel_vu_mono,
+                      [:pointer, :int], :float
+      attach_function :openmpt_module_get_current_channel_vu_left,
+                      [:pointer, :int], :float
+      attach_function :openmpt_module_get_current_channel_vu_right,
+                      [:pointer, :int], :float
+
       # Read module calls
       attach_function :openmpt_module_read_mono,
                       [:pointer, :int, :int, :pointer],

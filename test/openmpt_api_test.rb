@@ -281,12 +281,44 @@ class FFI::OpenMPT::APITest < Minitest::Test
 
     module_test(MOD_LAST_SUN) do |mod|
       openmpt_module_read_interleaved_stereo(mod, srate, frames, buf)
+
+      # At the start only one channel is playing any sound.
       assert_equal openmpt_module_get_current_playing_channels(mod), 1
 
-      # Move into the song a bit.
+      assert openmpt_module_get_current_channel_vu_mono(mod, 0) > 0.0
+      assert_equal openmpt_module_get_current_channel_vu_mono(mod, 1), 0.0
+      assert_equal openmpt_module_get_current_channel_vu_mono(mod, 2), 0.0
+      assert_equal openmpt_module_get_current_channel_vu_mono(mod, 3), 0.0
+
+      assert_equal openmpt_module_get_current_channel_vu_left(mod, 0), 0.0
+      assert_equal openmpt_module_get_current_channel_vu_left(mod, 1), 0.0
+      assert_equal openmpt_module_get_current_channel_vu_left(mod, 2), 0.0
+      assert_equal openmpt_module_get_current_channel_vu_left(mod, 3), 0.0
+
+      assert openmpt_module_get_current_channel_vu_right(mod, 0) > 0.0
+      assert_equal openmpt_module_get_current_channel_vu_right(mod, 1), 0.0
+      assert_equal openmpt_module_get_current_channel_vu_right(mod, 2), 0.0
+      assert_equal openmpt_module_get_current_channel_vu_right(mod, 3), 0.0
+
+      # Move into the song a bit. Now three channels are playing sound.
       openmpt_module_set_position_order_row(mod, 4, 0)
       openmpt_module_read_interleaved_stereo(mod, srate, frames, buf)
       assert_equal openmpt_module_get_current_playing_channels(mod), 3
+
+      assert openmpt_module_get_current_channel_vu_mono(mod, 0) > 0.0
+      assert_equal openmpt_module_get_current_channel_vu_mono(mod, 1), 0.0
+      assert openmpt_module_get_current_channel_vu_mono(mod, 2) > 0.0
+      assert openmpt_module_get_current_channel_vu_mono(mod, 3) > 0.0
+
+      assert openmpt_module_get_current_channel_vu_left(mod, 0) > 0.0
+      assert_equal openmpt_module_get_current_channel_vu_left(mod, 1), 0.0
+      assert openmpt_module_get_current_channel_vu_left(mod, 2) > 0.0
+      assert openmpt_module_get_current_channel_vu_left(mod, 3) > 0.0
+
+      assert openmpt_module_get_current_channel_vu_right(mod, 0) > 0.0
+      assert_equal openmpt_module_get_current_channel_vu_right(mod, 1), 0.0
+      assert openmpt_module_get_current_channel_vu_right(mod, 2) > 0.0
+      assert openmpt_module_get_current_channel_vu_right(mod, 3) > 0.0
     end
   end
 
