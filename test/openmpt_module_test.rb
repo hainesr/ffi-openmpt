@@ -270,6 +270,23 @@ class FFI::OpenMPT::ModuleTest < Minitest::Test
     assert_nil m.position
   end
 
+  # These calls need one of the read functions to have
+  # been called to be able to return sensible data.
+  def test_real_time_informational_calls
+    ::FFI::OpenMPT::Module.open(MOD_LAST_SUN) do |mod|
+      frames = mod.sample_rate / 10
+      buffer = ::FFI::MemoryPointer.new(:short, frames * 2)
+
+      mod.read_interleaved_stereo(frames, buffer)
+      assert_equal mod.current_playing_channels, 1
+
+      # Move into the song a bit.
+      mod.position = [4, 0]
+      mod.read_interleaved_stereo(frames, buffer)
+      assert_equal mod.current_playing_channels, 3
+    end
+  end
+
   def test_read_mono
     duration = 10
     raw = ::File.read(RAW_LAST_SUN_MONO_INT16)

@@ -141,6 +141,10 @@ module FFI
         openmpt_module_get_current_row(@mod)
       end
 
+      def current_playing_channels
+        openmpt_module_get_current_playing_channels(@mod)
+      end
+
       def metadata_keys
         ptr = openmpt_module_get_metadata_keys(@mod)
         ptr.read_string.split(';').map(&:to_sym)
