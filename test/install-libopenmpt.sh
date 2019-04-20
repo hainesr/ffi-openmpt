@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# Copyright (c) 2018 Robert Haines.
+# Copyright (c) 2018, 2019, Robert Haines.
 #
 # Licensed under the BSD License. See LICENCE for details.
 #

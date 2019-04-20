@@ -130,7 +130,7 @@ Until this library reaches version 1.0.0 the API may be subject to breaking chan
 
 The Ruby OpenMPT code (ffi-openmpt) is released under the BSD licence.
 
-Copyright (c) 2018, 2019 Robert Haines
+Copyright (c) 2018, 2019, Robert Haines
 All rights reserved.
 
 See LICENCE for more details.
