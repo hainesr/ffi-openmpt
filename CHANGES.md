@@ -1,5 +1,18 @@
 # Changes log for the Ruby OpenMPT library (ffi-openmpt)
 
+## Version 0.5.0
+
+* Nail down rubocop version and update todo list.
+* Add rubocop-performance to the setup.
+* Wrap some libopenmpt playing info functions.
+* Add the informational calls to the ruby interface.
+* Wrap the speed and tempo libopenmpt functions.
+* Add the speed and tempo calls to the ruby interface.
+* Wrap the current playing channels libopenmpt function.
+* Add current playing channels to the ruby interface.
+* Wrap the VU meter libopenmpt functions.
+* Add VU meter calls to the ruby interface.
+
 ## Version 0.4.1
 
 * Use an explicit begin block in Module#get_names.
