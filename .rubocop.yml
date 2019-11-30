@@ -2,19 +2,6 @@ require: rubocop-performance
 
 inherit_from: .rubocop_todo.yml
 
-# Turn this off for now. CI checks different versions of ruby anyway.
-Gemspec/RequiredRubyVersion:
-  Exclude:
-    - 'ffi-openmpt.gemspec'
-
-# Force ruby19 style hash keys, but be consistent within a hash.
-Style/HashSyntax:
-  EnforcedStyle: ruby19_no_mixed_keys
-
-# Use brackets style for symbol arrays.
-Style/SymbolArray:
-  EnforcedStyle: brackets
-
 # Enforce empty lines at the beginning of classes.
 Layout/EmptyLinesAroundClassBody:
   EnforcedStyle: beginning_only
@@ -24,33 +11,25 @@ Layout/EmptyLinesAroundClassBody:
 Layout/EmptyLinesAroundModuleBody:
   Enabled: false
 
-# Don't enforce things like #positive? due to older rubies not supporting it
-Style/NumericPredicate:
-  EnforcedStyle: comparison
-
-Style/MixinUsage:
-  Exclude:
-    - 'examples/**/*'
-
-# Allow compact child definitions in the tests for brevity.
-Style/ClassAndModuleChildren:
-  Exclude:
-    - 'test/**/*'
-
 # Ignore ABC failures in the tests.
 Metrics/AbcSize:
   Exclude:
     - 'test/**/*.rb'
 
-# Set a more reasonable method length and ignore failures in the tests.
-Metrics/MethodLength:
-  Max: 15
+# Ignore block length failures in the tests.
+Metrics/BlockLength:
   Exclude:
     - 'test/**/*.rb'
 
 # Set a more reasonable class length and ignore failures in the tests.
 Metrics/ClassLength:
   Max: 250
+  Exclude:
+    - 'test/**/*.rb'
+
+# Set a more reasonable method length and ignore failures in the tests.
+Metrics/MethodLength:
+  Max: 15
   Exclude:
     - 'test/**/*.rb'
 
@@ -61,7 +40,15 @@ Metrics/ModuleLength:
     - 'lib/ffi/openmpt/api.rb'
     - 'test/**/*.rb'
 
-# Set a more reasonable block length and ignore failures in the tests.
-Metrics/BlockLength:
+# Allow compact child definitions in the tests for brevity.
+Style/ClassAndModuleChildren:
   Exclude:
-    - 'test/**/*.rb'
+    - 'test/**/*'
+
+Style/MixinUsage:
+  Exclude:
+    - 'examples/**/*'
+
+# Use brackets style for symbol arrays.
+Style/SymbolArray:
+  EnforcedStyle: brackets
