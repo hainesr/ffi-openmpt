@@ -11,14 +11,3 @@ Style/Documentation:
   Exclude:
     - 'test/**/*'
     - 'lib/**/*'
-
-# Offense count: 4
-# Cop supports --auto-correct.
-# Configuration parameters: AutoCorrect, EnforcedStyle, IgnoredMethods.
-# SupportedStyles: predicate, comparison
-Style/NumericPredicate:
-  Exclude:
-    - 'examples/mod-2-raw'
-    - 'examples/mod-info-api'
-    - 'lib/ffi/openmpt/module.rb'
-    - 'test/openmpt_api_test.rb'

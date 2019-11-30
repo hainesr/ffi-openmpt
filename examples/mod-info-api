@@ -18,7 +18,7 @@ def check_mod_error(mod)
   message = message_ptr.read_string
   openmpt_free_string(message_ptr)
 
-  if trans == 0
+  if trans.zero?
     puts "Error! '#{message}'. Exiting."
     exit(1)
   else

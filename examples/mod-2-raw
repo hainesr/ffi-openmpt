@@ -63,7 +63,7 @@ puts "Size.......: #{::File.size(mod_path) / 1_024}k"
   ::File.open(mod_path + '.' + raw_type, 'wb') do |file|
     loop do
       count = mod.send(method, frames_per_read, buffer)
-      break if count == 0
+      break if count.zero?
 
       file.write(buffer.read_bytes(count * buffer.type_size * 2))
     end

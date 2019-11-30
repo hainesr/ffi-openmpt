@@ -225,7 +225,7 @@ class FFI::OpenMPT::APITest < Minitest::Test
 
   def test_probe_file_header
     size = openmpt_probe_file_header_get_recommended_size
-    assert size > 0
+    assert size.positive?
 
     data = load_mod_data(MOD_LAST_SUN)
     probe_data = data.read_bytes(size)

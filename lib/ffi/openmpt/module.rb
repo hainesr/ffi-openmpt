@@ -295,7 +295,7 @@ module FFI
           LogSilent, nil, ErrorIgnore, nil, nil, nil, nil
         )
 
-        @closed = (mod.address == 0)
+        @closed = mod.address.zero?
         mod
       end
 
