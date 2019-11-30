@@ -43,11 +43,13 @@ module FFI
 
       def duration
         return if closed?
+
         openmpt_module_get_duration_seconds(@mod)
       end
 
       def num_subsongs
         return if closed?
+
         openmpt_module_get_num_subsongs(@mod)
       end
 
@@ -57,6 +59,7 @@ module FFI
 
       def num_channels
         return if closed?
+
         openmpt_module_get_num_channels(@mod)
       end
 
@@ -66,6 +69,7 @@ module FFI
 
       def num_orders
         return if closed?
+
         openmpt_module_get_num_orders(@mod)
       end
 
@@ -75,6 +79,7 @@ module FFI
 
       def num_patterns
         return if closed?
+
         openmpt_module_get_num_patterns(@mod)
       end
 
@@ -84,6 +89,7 @@ module FFI
 
       def num_instruments
         return if closed?
+
         openmpt_module_get_num_instruments(@mod)
       end
 
@@ -93,6 +99,7 @@ module FFI
 
       def num_samples
         return if closed?
+
         openmpt_module_get_num_samples(@mod)
       end
 
@@ -110,6 +117,7 @@ module FFI
 
       def position
         return if closed?
+
         openmpt_module_get_position_seconds(@mod)
       end
 
@@ -260,6 +268,7 @@ module FFI
 
       def close
         return if closed?
+
         @closed = true
         openmpt_module_destroy(@mod)
       end
