@@ -56,10 +56,10 @@ class FFI::OpenMPT::ModuleTest < Minitest::Test
       assert_equal mod.sample_rate, 44_100
 
       mod.sample_rate = 7_999
-      assert_equal mod.sample_rate, 44_100
+      assert_equal mod.sample_rate, 8_000
 
       mod.sample_rate = 192_001
-      assert_equal mod.sample_rate, 44_100
+      assert_equal mod.sample_rate, 192_000
 
       mod.sample_rate = 8_000
       assert_equal mod.sample_rate, 8_000

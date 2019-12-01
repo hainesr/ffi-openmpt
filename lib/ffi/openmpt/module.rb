@@ -38,7 +38,7 @@ module FFI
       end
 
       def sample_rate=(rate)
-        @sample_rate = rate if (8_000..192_000).cover?(rate)
+        @sample_rate = rate.clamp(8_000, 192_000)
       end
 
       def duration
