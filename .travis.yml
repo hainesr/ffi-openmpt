@@ -9,9 +9,9 @@ before_install:
   - export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$TRAVIS_BUILD_DIR/usr/lib
 
 rvm:
-  - 2.4.5
-  - 2.5.5
-  - 2.6.2
+  - 2.4
+  - 2.5
+  - 2.6
   - rbx-3
   - ruby-head
 
