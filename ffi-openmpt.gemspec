@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Copyright (c) 2018, 2019, Robert Haines.
+# Copyright (c) 2018-2020 Robert Haines.
 #
 # Licensed under the BSD License. See LICENCE for details.
 
@@ -35,7 +35,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'bundler', '~> 2.0.1'
   spec.add_development_dependency 'coveralls', '~> 0.8'
   spec.add_development_dependency 'minitest', '~> 5.0'
-  spec.add_development_dependency 'rake', '~> 10.0'
+  spec.add_development_dependency 'rake', '~> 12.3.3'
   spec.add_development_dependency 'rubocop', '0.77.0'
   spec.add_development_dependency 'rubocop-performance', '1.5.0'
 end
