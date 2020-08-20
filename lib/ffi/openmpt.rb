@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Copyright (c) 2018, 2019, Robert Haines.
+# Copyright (c) 2018-2020, Robert Haines.
 #
 # Licensed under the BSD License. See LICENCE for details.
 
@@ -15,4 +15,5 @@ require 'ffi/openmpt/version'
 require 'ffi/openmpt/api'
 require 'ffi/openmpt/openmpt'
 require 'ffi/openmpt/string'
+require 'ffi/openmpt/module_guard'
 require 'ffi/openmpt/module'

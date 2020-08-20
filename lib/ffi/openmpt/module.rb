@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Copyright (c) 2018, 2019, Robert Haines.
+# Copyright (c) 2018-2020, Robert Haines.
 #
 # Licensed under the BSD License. See LICENCE for details.
 
@@ -8,9 +8,24 @@ module FFI
   module OpenMPT
     class Module
 
+      extend ModuleGuard
       include API
 
       attr_reader :sample_rate
+
+      # Guard these methods against being called on a closed mod.
+      guard :channel_names, :close, :current_channel_vu_mono,
+            :current_channel_vu_stereo, :current_order, :current_pattern,
+            :current_playing_channels, :current_row, :current_speed,
+            :current_tempo, :duration, :gain, :gain=, :instrument_names,
+            :interpolation_filter, :interpolation_filter=, :metadata,
+            :num_channels, :num_instruments, :num_orders, :num_patterns,
+            :num_samples, :num_subsongs, :order_names, :pattern_names,
+            :position, :position=, :read_float_mono, :read_float_stereo,
+            :read_interleaved_float_stereo, :read_interleaved_stereo,
+            :read_mono, :read_stereo, :repeat_count, :repeat_count=,
+            :sample_names, :stereo_separation, :stereo_separation=,
+            :subsong_names, :volume_ramping, :volume_ramping=
 
       def initialize(filename, sample_rate = 48_000)
         @closed = false
