@@ -57,69 +57,60 @@ module FFI
       end
 
       def duration
-        return if closed?
-
-        openmpt_module_get_duration_seconds(@mod)
+        @duration ||= openmpt_module_get_duration_seconds(@mod)
       end
 
       def num_subsongs
-        return if closed?
-
-        openmpt_module_get_num_subsongs(@mod)
+        @num_subsongs ||= openmpt_module_get_num_subsongs(@mod)
       end
 
       def subsong_names
-        get_names(num_subsongs, :openmpt_module_get_subsong_name)
+        @subsong_names ||=
+          get_names(num_subsongs, :openmpt_module_get_subsong_name)
       end
 
       def num_channels
-        return if closed?
-
-        openmpt_module_get_num_channels(@mod)
+        @num_channels ||= openmpt_module_get_num_channels(@mod)
       end
 
       def channel_names
-        get_names(num_channels, :openmpt_module_get_channel_name)
+        @channel_names ||=
+          get_names(num_channels, :openmpt_module_get_channel_name)
       end
 
       def num_orders
-        return if closed?
-
-        openmpt_module_get_num_orders(@mod)
+        @num_orders ||= openmpt_module_get_num_orders(@mod)
       end
 
       def order_names
-        get_names(num_orders, :openmpt_module_get_order_name)
+        @order_names ||= get_names(num_orders, :openmpt_module_get_order_name)
       end
 
       def num_patterns
-        return if closed?
-
-        openmpt_module_get_num_patterns(@mod)
+        @num_patterns ||= openmpt_module_get_num_patterns(@mod)
       end
 
       def pattern_names
-        get_names(num_patterns, :openmpt_module_get_pattern_name)
+        @pattern_names ||=
+          get_names(num_patterns, :openmpt_module_get_pattern_name)
       end
 
       def num_instruments
-        return if closed?
-
-        openmpt_module_get_num_instruments(@mod)
+        @num_instruments ||= openmpt_module_get_num_instruments(@mod)
       end
 
       def instrument_names
-        get_names(num_instruments, :openmpt_module_get_instrument_name)
+        @instrument_names ||=
+          get_names(num_instruments, :openmpt_module_get_instrument_name)
       end
 
       def num_samples
-        return if closed?
-
-        openmpt_module_get_num_samples(@mod)
+        @num_samples ||= openmpt_module_get_num_samples(@mod)
       end
 
       def sample_names
-        get_names(num_samples, :openmpt_module_get_sample_name)
+        @sample_names ||=
+          get_names(num_samples, :openmpt_module_get_sample_name)
       end
 
       def repeat_count
@@ -131,8 +122,6 @@ module FFI
       end
 
       def position
-        return if closed?
-
         openmpt_module_get_position_seconds(@mod)
       end
 
@@ -187,7 +176,7 @@ module FFI
       end
 
       def metadata(key)
-        return if closed? || !metadata_keys.include?(key)
+        return unless metadata_keys.include?(key)
 
         ptr = openmpt_module_get_metadata(@mod, key.to_s)
         ptr.read_string
@@ -282,8 +271,6 @@ module FFI
       end
 
       def close
-        return if closed?
-
         @closed = true
         openmpt_module_destroy(@mod)
       end
