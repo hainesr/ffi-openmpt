@@ -13,3 +13,5 @@
 .ruby-gemset
 
 Gemfile.lock
+
+test/fixtures/*.raw
