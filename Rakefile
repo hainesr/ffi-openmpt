@@ -16,7 +16,7 @@ RAW_PCM_FILES = [
   RAW_LAST_SUN_FLOAT,
   RAW_LAST_SUN_MONO_INT16,
   RAW_LAST_SUN_MONO_FLOAT
-]
+].freeze
 
 task default: :test
 
