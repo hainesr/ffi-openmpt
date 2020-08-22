@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# Copyright (c) 2018, 2019, Robert Haines.
+# Copyright (c) 2018-2020, Robert Haines.
 #
 # Licensed under the BSD License. See LICENCE for details.
 #
@@ -17,7 +17,6 @@ tar xzf ${TAR}
 cd ${DIR} && \
 ./configure --prefix=$TRAVIS_BUILD_DIR/usr \
             --disable-largefile \
-            --disable-openmpt123 \
             --disable-examples \
             --disable-libopenmpt_modplug \
             --disable-libmodplug \
@@ -27,6 +26,8 @@ cd ${DIR} && \
             --without-vorbis \
             --without-vorbisfile \
             --without-pulseaudio \
-            --without-portaudio && \
+            --without-portaudio \
+            --without-sndfile \
+            --without-flac && \
 make && \
 make install

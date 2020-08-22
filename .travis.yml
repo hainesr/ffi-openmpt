@@ -7,6 +7,7 @@ before_install:
   - gem install bundler -v 2.1
   - ./test/install-libopenmpt.sh
   - export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$TRAVIS_BUILD_DIR/usr/lib
+  - export PATH=$PATH:$TRAVIS_BUILD_DIR/usr/bin
 
 rvm:
   - 2.4
