@@ -5,6 +5,7 @@
 # Licensed under the BSD License. See LICENCE for details.
 
 require 'bundler/gem_tasks'
+require 'rake/clean'
 require 'rake/testtask'
 require 'rubocop/rake_task'
 
@@ -26,6 +27,8 @@ RAW_PCM_FILES.each do |pcm|
     channels = pcm.include?('mono') ? '--channels 1' : '--channels 2'
     sh "#{OPENMPT_CMD} #{float} #{channels} -o #{t.name} #{t.prerequisites[0]}"
   end
+
+  CLEAN << pcm
 end
 
 Rake::TestTask.new(:test) do |t|
