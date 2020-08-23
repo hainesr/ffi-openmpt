@@ -126,7 +126,8 @@ class FFI::OpenMPT::APITest < Minitest::Test
       openmpt_free_string(keys)
 
       data = openmpt_module_get_metadata(mod, 'type')
-      assert_equal data.read_string, 'mod'
+      assert_equal data.read_string,
+                   METADATA_KEYS_LAST_SUN[LIB_VERSION_UNDER_TEST][:type]
       openmpt_free_string(data)
 
       data = openmpt_module_get_metadata(mod, 'xxxx')
@@ -290,12 +291,20 @@ class FFI::OpenMPT::APITest < Minitest::Test
       assert_equal openmpt_module_get_current_channel_vu_mono(mod, 2), 0.0
       assert_equal openmpt_module_get_current_channel_vu_mono(mod, 3), 0.0
 
-      assert_equal openmpt_module_get_current_channel_vu_left(mod, 0), 0.0
+      if LIB_VERSION_UNDER_TEST >= 0.4
+        assert openmpt_module_get_current_channel_vu_left(mod, 0) > 0.0
+      else
+        assert_equal openmpt_module_get_current_channel_vu_left(mod, 0), 0.0
+      end
       assert_equal openmpt_module_get_current_channel_vu_left(mod, 1), 0.0
       assert_equal openmpt_module_get_current_channel_vu_left(mod, 2), 0.0
       assert_equal openmpt_module_get_current_channel_vu_left(mod, 3), 0.0
 
-      assert openmpt_module_get_current_channel_vu_right(mod, 0) > 0.0
+      if LIB_VERSION_UNDER_TEST >= 0.4
+        assert_equal openmpt_module_get_current_channel_vu_right(mod, 0), 0.0
+      else
+        assert openmpt_module_get_current_channel_vu_right(mod, 0) > 0.0
+      end
       assert_equal openmpt_module_get_current_channel_vu_right(mod, 1), 0.0
       assert_equal openmpt_module_get_current_channel_vu_right(mod, 2), 0.0
       assert_equal openmpt_module_get_current_channel_vu_right(mod, 3), 0.0
