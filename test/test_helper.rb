@@ -28,6 +28,9 @@ ensure
   STDERR.reopen(orig_stderr)
 end
 
+# The version number of the library under test.
+LIB_VERSION_UNDER_TEST = ::FFI::OpenMPT.library_version[0..1].join('.').to_f
+
 # Data within the test mod
 SAMPLE_NAMES_LAST_SUN = [
   'music composed by',
@@ -47,10 +50,26 @@ SAMPLE_NAMES_LAST_SUN = [
   'use doc 2.0 replayer'
 ].freeze
 
-METADATA_KEYS_LAST_SUN = [
-  [:type, 'mod'],
-  [:type_long, 'Generic Amiga / PC MOD file'],
-  [:tracker, 'Master Soundtracker 1.0'],
-  [:title, 'the last sun'],
-  [:message_raw, '']
-].freeze
+METADATA_KEYS_LAST_SUN = {
+  0.3 => {
+    type: 'mod',
+    type_long: 'Generic Amiga / PC MOD file',
+    tracker: 'Master Soundtracker 1.0',
+    title: 'the last sun',
+    message_raw: ''
+  },
+  0.4 => {
+    type: 'stk',
+    type_long: 'Soundtracker',
+    tracker: 'Master Soundtracker 1.0',
+    title: 'the last sun',
+    message_raw: ''
+  },
+  0.5 => {
+    type: 'stk',
+    type_long: 'Soundtracker',
+    tracker: 'Master Soundtracker 1.0',
+    title: 'the last sun',
+    message_raw: ''
+  }
+}.freeze

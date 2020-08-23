@@ -148,7 +148,7 @@ class FFI::OpenMPT::ModuleTest < Minitest::Test
 
   def test_metadata
     m = ::FFI::OpenMPT::Module.open(MOD_LAST_SUN) do |mod|
-      METADATA_KEYS_LAST_SUN.each do |key, value|
+      METADATA_KEYS_LAST_SUN[LIB_VERSION_UNDER_TEST].each do |key, value|
         assert_equal mod.metadata(key), value
       end
 
@@ -160,7 +160,7 @@ class FFI::OpenMPT::ModuleTest < Minitest::Test
 
   def test_metadata_as_methods
     m = ::FFI::OpenMPT::Module.open(MOD_LAST_SUN) do |mod|
-      METADATA_KEYS_LAST_SUN.each do |key, value|
+      METADATA_KEYS_LAST_SUN[LIB_VERSION_UNDER_TEST].each do |key, value|
         assert_equal mod.send(key), value
       end
 
@@ -288,8 +288,13 @@ class FFI::OpenMPT::ModuleTest < Minitest::Test
       assert_equal mod.current_channel_vu_mono(3), 0.0
 
       l, r = mod.current_channel_vu_stereo(0)
-      assert_equal l, 0.0
-      assert r > 0.0
+      if LIB_VERSION_UNDER_TEST >= 0.4
+        assert l > 0.0
+        assert_equal r, 0.0
+      else
+        assert_equal l, 0.0
+        assert r > 0.0
+      end
 
       l, r = mod.current_channel_vu_stereo(1)
       assert_equal l, 0.0
