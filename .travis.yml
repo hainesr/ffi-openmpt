@@ -19,8 +19,8 @@ rvm:
   - ruby-head
 
 env:
-  - TEST_LIBOPENMPT_VERSION=0.3.11
   - TEST_LIBOPENMPT_VERSION=0.3.12
+  - TEST_LIBOPENMPT_VERSION=0.5.1
 
 matrix:
   fast_finish: true
@@ -28,7 +28,6 @@ matrix:
     - rvm: rbx-4
     - rvm: truffleruby
     - rvm: ruby-head
-    - env: TEST_LIBOPENMPT_VERSION=0.3.12
   exclude:
     - rvm: rbx-4
       env: TEST_LIBOPENMPT_VERSION=0.3.12
