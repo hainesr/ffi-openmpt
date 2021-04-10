@@ -1,0 +1,26 @@
+name: Tests
+
+on: [push, pull_request]
+
+jobs:
+  tests:
+    strategy:
+      matrix:
+        ruby: [2.5, 2.6, 2.7, 3.0]
+        libopenmpt: [0.3.12, 0.5.1]
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: ${{ matrix.ruby }}
+        bundler-cache: true
+    - name: Build libopenmpt version ${{ matrix.libopenmpt }}
+      env:
+        TEST_LIBOPENMPT_VERSION: ${{ matrix.libopenmpt }}
+      run: ./test/install-libopenmpt.sh
+    - name: Test with Ruby ${{ matrix.ruby }}
+      run: |
+        export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$GITHUB_WORKSPACE/usr/lib
+        export PATH=$PATH:$GITHUB_WORKSPACE/usr/bin
+        bundle exec rake

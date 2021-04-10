@@ -15,7 +15,7 @@ wget https://lib.openmpt.org/files/libopenmpt/src/${TAR}
 tar xzf ${TAR}
 
 cd ${DIR} && \
-./configure --prefix=$TRAVIS_BUILD_DIR/usr \
+./configure --prefix=$GITHUB_WORKSPACE/usr \
             --disable-largefile \
             --disable-examples \
             --disable-libopenmpt_modplug \
