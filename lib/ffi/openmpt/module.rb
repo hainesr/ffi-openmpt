@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Copyright (c) 2018-2020, Robert Haines.
+# Copyright (c) 2018-2021, Robert Haines.
 #
 # Licensed under the BSD License. See LICENCE for details.
 
@@ -303,12 +303,10 @@ module FFI
 
       def get_names(num, get)
         (0...num).reduce([]) do |acc, i|
-          begin
-            ptr = send(get, @mod, i)
-            acc << ptr.read_string
-          ensure
-            openmpt_free_string(ptr)
-          end
+          ptr = send(get, @mod, i)
+          acc << ptr.read_string
+        ensure
+          openmpt_free_string(ptr)
         end
       end
     end
