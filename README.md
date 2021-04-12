@@ -8,7 +8,6 @@ A ruby interface to `libopenmpt` - part of [OpenMPT][mpt-home].
 See the [libopenmpt homepage][lib-home] for more information.
 
 [![Gem Version](https://badge.fury.io/rb/ffi-openmpt.svg)](https://badge.fury.io/rb/ffi-openmpt)
-[![Build Status](https://travis-ci.org/hainesr/ffi-openmpt.svg?branch=master)](https://travis-ci.org/hainesr/ffi-openmpt)
 [![Tests](https://github.com/hainesr/ffi-openmpt/actions/workflows/test.yml/badge.svg)](https://github.com/hainesr/ffi-openmpt/actions/workflows/test.yml)
 [![Linter](https://github.com/hainesr/ffi-openmpt/actions/workflows/lint.yml/badge.svg)](https://github.com/hainesr/ffi-openmpt/actions/workflows/lint.yml)
 [![Maintainability](https://api.codeclimate.com/v1/badges/919bd8b421798dbd2719/maintainability)](https://codeclimate.com/github/hainesr/ffi-openmpt/maintainability)
