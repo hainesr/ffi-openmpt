@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Copyright (c) 2018-2020, Robert Haines.
+# Copyright (c) 2018-2022, Robert Haines.
 #
 # Licensed under the BSD License. See LICENCE for details.
 
@@ -66,6 +66,13 @@ METADATA_KEYS_LAST_SUN = {
     message_raw: ''
   },
   0.5 => {
+    type: 'stk',
+    type_long: 'Soundtracker',
+    tracker: 'Master Soundtracker 1.0',
+    title: 'the last sun',
+    message_raw: ''
+  },
+  0.6 => {
     type: 'stk',
     type_long: 'Soundtracker',
     tracker: 'Master Soundtracker 1.0',
